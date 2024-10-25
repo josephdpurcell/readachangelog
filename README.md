@@ -40,6 +40,4 @@ Template for this project built with [typescript-template/cli](https://www.npmjs
 ## Notes for the Teamplate
 
 - Modified package.json `private: false` because it kept failing on trying to publish private
-- Modified scripts/publish to have `npm publish --access public` because it kept failing on trying to publish private
-- Have to run tests via `npm run test`, hopefully there is some way to do this with VSCode so you can quickly run a specific test
-- I was initially confused on `scripts/` vs `src/bin/`. It makes sense now.
+- Changed package.json to have `"bin": { "readachangelog": "./dist/cli.js" }`

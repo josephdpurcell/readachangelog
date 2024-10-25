@@ -43,3 +43,9 @@ Cleans, then builds, and tests the built code.
 Cleans, then builds, then bundles into native executables for Windows, Mac, and Linux.
 
 Your shareable executables will be in the `./exec/` directory.
+
+## Publishing
+
+```
+npm publish --access public
+```

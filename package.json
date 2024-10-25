@@ -1,7 +1,7 @@
 {
-  "name": "readachangelog",
+  "name": "@readachangelog/cli",
   "private": false,
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Keep a changelog? Read a changelog.",
   "author": "Joseph D. Purcell",
   "keywords": [
@@ -10,7 +10,9 @@
   ],
   "license": "ISC",
   "main": "./dist/index.js",
-  "bin": "./dist/cli.js",
+  "bin": {
+    "readachangelog": "./dist/cli.js"
+  },
   "files": [
     "dist/**/*",
     "!dist/**/*.test.js"
