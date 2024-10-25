@@ -1,7 +1,7 @@
 {
   "name": "@readachangelog/cli",
   "private": false,
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "Keep a changelog? Read a changelog.",
   "author": "Joseph D. Purcell",
   "keywords": [
