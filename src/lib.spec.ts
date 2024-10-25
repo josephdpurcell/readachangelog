@@ -1,6 +1,6 @@
 import { fail } from "assert";
 import { VersionOrDateMatch } from "./dto";
-import { ChangelogLib } from "./lib";
+import { ReadachangelogUtility } from "./lib";
 import { ChangelogVersion } from "./parser";
 describe("ChangelogLib", () => {
   it("date", async () => {
@@ -108,10 +108,10 @@ describe("ChangelogLib", () => {
 
     tests.forEach(([input, expectedParsed]) => {
       if (expectedParsed === undefined) {
-        expect(() => ChangelogLib.parseVersionOrDate(input)).toThrow();
+        expect(() => ReadachangelogUtility.parseVersionOrDate(input)).toThrow();
         return;
       }
-      const parsed = ChangelogLib.parseVersionOrDate(input);
+      const parsed = ReadachangelogUtility.parseVersionOrDate(input);
       expect(parsed).toEqual(expectedParsed);
     });
   });
@@ -127,10 +127,10 @@ describe("ChangelogLib", () => {
 
     tests.forEach(([input, expectedParsed]) => {
       if (expectedParsed === undefined) {
-        expect(() => ChangelogLib.parseVersionOrDate(input)).toThrow();
+        expect(() => ReadachangelogUtility.parseVersionOrDate(input)).toThrow();
         return;
       }
-      const parsed = ChangelogLib.parseVersionOrDate(input);
+      const parsed = ReadachangelogUtility.parseVersionOrDate(input);
       expect(parsed).toEqual(expectedParsed);
     });
   });
@@ -205,7 +205,7 @@ describe("ChangelogLib", () => {
     ];
 
     tests.forEach((test, index) => {
-      const isMatch = ChangelogLib.isMatch(
+      const isMatch = ReadachangelogUtility.isMatch(
         changelogVersion,
         test.versionOrDate
       );

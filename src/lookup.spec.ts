@@ -1,7 +1,7 @@
-import { ChangelogLookup } from "./lookup";
+import { ReadachangelogLookup } from "./lookup";
 
 describe("ChangelogLookup", () => {
-  const lookup = new ChangelogLookup();
+  const lookup = new ReadachangelogLookup();
 
   it("fromNpm changelog-parser", async () => {
     const content = await lookup.fromNpm("changelog-parser");

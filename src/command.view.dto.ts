@@ -1,31 +1,22 @@
 import { VersionOrDateMatch } from "./dto";
-
-export class ChangelogLookupOptions {
-  cacheDir: string;
-}
+import { ReadachangelogLookupOptions } from "./lookup";
 
 /**
  * Configuration used to instantiate the CLI tool.
  */
-export class ChangelogCliConfig {
-  lookupOptions?: Partial<ChangelogLookupOptions>;
-}
-
-/**
- * Map inputs from process.argv.
- */
-export class ChangelogCliInputArguments {
-  command: "run" | "help";
-  moduleName: string;
-  versionOrDate?: string;
-  format: "raw" | "json";
+export class ViewCommandConfig {
+  lookupOptions?: Partial<ReadachangelogLookupOptions>;
 }
 
 /**
  * The actual arguments we need to run the command.
  */
-export class ChangelogCliArguments {
-  moduleSpec: string;
+export class ViewCommandArguments {
+  packageSpec: string;
   versionOrDate: VersionOrDateMatch;
   outputFormat: "raw" | "json";
+  /**
+   * A negative number, zero, or undefined is unlimited. Only positive numbers limit.
+   */
+  limit: number | undefined;
 }

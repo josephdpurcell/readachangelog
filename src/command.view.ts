@@ -1,64 +1,49 @@
-import {
-  ChangelogCliArguments,
-  ChangelogCliConfig,
-  ChangelogCliInputArguments,
-} from "./command.view.dto";
-import { COMMAND_NAME, COMMAND_VERSION, EXIT_CODE_FAILURE } from "./dto";
-import { ChangelogError } from "./error";
-import { ChangelogLib } from "./lib";
-import { ChangelogLookup } from "./lookup";
+import { ViewCommandArguments, ViewCommandConfig } from "./command.view.dto";
+import { ReadachangelogError } from "./error";
+import { ReadachangelogUtility } from "./lib";
+import { ReadachangelogLookup } from "./lookup";
 import { ChangelogParser, type Changelog } from "./parser";
 
 /**
  * Print the contents of a CHANGELOG.md.
  */
-export class ChangelogCli {
-  protected readonly lookup: ChangelogLookup;
+export class ViewCommand {
+  protected readonly lookup: ReadachangelogLookup;
   protected readonly parser: ChangelogParser;
 
-  constructor(options?: Partial<ChangelogCliConfig>) {
-    this.lookup = new ChangelogLookup(options?.lookupOptions);
+  constructor(options?: Partial<ViewCommandConfig>) {
+    this.lookup = new ReadachangelogLookup(options?.lookupOptions);
     this.parser = new ChangelogParser();
-  }
-
-  /**
-   * Run, but first get args from process.
-   */
-  async runWrapper(): Promise<void> {
-    try {
-      const args = ChangelogLib.getArgsFromProcess();
-      if (args.command === "help") {
-        await this.help();
-        process.exit(EXIT_CODE_FAILURE);
-      }
-      const validArgs = this.convertInputArgsToArgs(args);
-      await this.run(validArgs);
-    } catch (e) {
-      if (e instanceof Error) {
-        console.error(`ERROR: ${e.message}`);
-      }
-      process.exit(EXIT_CODE_FAILURE);
-    }
   }
 
   /**
    * Run with the given args.
    */
-  async run(args: ChangelogCliArguments): Promise<void> {
+  async run(args: ViewCommandArguments): Promise<void> {
     // Get the changelog contents
-    const content = await this.lookup.lookup(args.moduleSpec);
+    const content = await this.lookup.lookup(args.packageSpec);
+    const limit: number | undefined =
+      args.limit && args.limit > 0 ? args.limit : undefined;
 
     // If we are printing the raw file don't do ANY processing.
-    if (args.versionOrDate.type === "all" && args.outputFormat === "raw") {
+    if (
+      args.versionOrDate.type === "all" &&
+      args.outputFormat === "raw" &&
+      !limit
+    ) {
       console.log(content);
       return;
     }
 
     // Parse the changelog
     const parsed = await this.parser.parseString(content);
-    const sections = ChangelogLib.getMatches(parsed, args.versionOrDate);
+    const sections = ReadachangelogUtility.getMatches(
+      parsed,
+      args.versionOrDate,
+      limit
+    );
     if (!sections.length) {
-      throw new ChangelogError(
+      throw new ReadachangelogError(
         `No CHANGELOG.md sections matching ${args.versionOrDate.input}`
       );
     }
@@ -77,77 +62,6 @@ export class ChangelogCli {
       console.log(strings.join("\n\n"));
       return;
     }
-    throw new ChangelogError("Invalid output format");
-  }
-
-  async help(): Promise<void> {
-    console.log(`NAME
-    ${COMMAND_NAME} v${COMMAND_VERSION} - read changelog data from npm modules on any registry
-
-SYNOPSIS
-    changelog [module_spec] [version]
-
-    changelog [module_spec] [date]
-
-    changelog [--help | -h]
-
-OPTIONS
-    module_spec (required) - The spec of a module you want to read the changelog from; anything you could pass to npm install can be passed here.
-
-    version (optional) - The semver version or semver version range you want to read out of the changelog.
-
-    date (optional) - The date or date wildcard you want to read out of the changelog.
-
-    -h, --help (optional) - Print the help information.
-
-EXAMPLES
-    To print the latest version:
-
-        ${COMMAND_NAME} foo
-
-        OR
-
-        ${COMMAND_NAME} foo latest
-
-    To print the latest version using a specific module version:
-
-        ${COMMAND_NAME} foo@1.0.0
-
-    To print the entire changelog:
-
-        ${COMMAND_NAME} foo all
-
-    To print for a date:
-
-        ${COMMAND_NAME} foo 1970-01-01
-
-        ${COMMAND_NAME} foo 1970-01-*
-
-        ${COMMAND_NAME} foo 1970-*
-
-    To print for a version:
-
-        ${COMMAND_NAME} foo 1.0.0
-
-        ${COMMAND_NAME} foo >=1.0.0
-`);
-  }
-
-  /**
-   * Convert inputs from process to args for running.
-   */
-  protected convertInputArgsToArgs(
-    args?: Partial<ChangelogCliInputArguments>
-  ): ChangelogCliArguments {
-    if (!args?.moduleName) {
-      throw new ChangelogError("Must specify [module_name]");
-    }
-    const versionOrDate = ChangelogLib.parseVersionOrDate(args.versionOrDate);
-
-    return {
-      moduleSpec: args.moduleName,
-      versionOrDate,
-      outputFormat: "raw",
-    };
+    throw new ReadachangelogError("Invalid output format");
   }
 }

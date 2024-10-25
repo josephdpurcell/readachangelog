@@ -20,10 +20,22 @@ Install:
 npm i -g @readachangelog/cli
 ```
 
-Profit:
+Read the help:
 
 ```
 readachangelog --help
+```
+
+For example:
+
+```
+keepachangelog view axios | less
+```
+
+Or as JSON:
+
+```
+keepachangelog view axios --json | jq .
 ```
 
 ## Contributing & Development

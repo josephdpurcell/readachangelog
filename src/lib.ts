@@ -10,9 +10,8 @@ import {
 } from "@npmcli/config/lib/definitions";
 import * as path from "path";
 import * as semver from "semver";
-import { ChangelogCliInputArguments } from "./command.view.dto";
 import type { VersionOrDateMatch } from "./dto";
-import { ChangelogError } from "./error";
+import { ReadachangelogError } from "./error";
 import type { Changelog, ChangelogVersion } from "./parser";
 
 /**
@@ -22,22 +21,7 @@ import type { Changelog, ChangelogVersion } from "./parser";
  * various functions with no context.
  */
 // eslint-disable-next-line @typescript-eslint/no-extraneous-class
-export class ChangelogLib {
-  static getArgsFromProcess(): Partial<ChangelogCliInputArguments> {
-    for (const arg of process.argv) {
-      if (["--help", "-h"].includes(arg)) {
-        return {
-          command: "help",
-        };
-      }
-    }
-    return {
-      command: "run",
-      moduleName: process.argv[2],
-      versionOrDate: process.argv[3],
-    };
-  }
-
+export class ReadachangelogUtility {
   static parseVersionOrDate(input?: string): VersionOrDateMatch {
     if (!input || input === "all") {
       return {
@@ -103,18 +87,31 @@ export class ChangelogLib {
       };
     }
 
-    throw new ChangelogError("Invalid version or date");
+    throw new ReadachangelogError("Invalid version or date");
   }
 
+  /**
+   *
+   * @param changelog
+   * @param versionOrDate
+   * @param limit Must be a positive int or undefined. Undefined means no limit
+   * @returns
+   */
   static getMatches(
     changelog: Changelog,
-    versionOrDate: VersionOrDateMatch
+    versionOrDate: VersionOrDateMatch,
+    limit: number | undefined
   ): ChangelogVersion[] {
     const matches: ChangelogVersion[] = [];
+    let count = 0;
     for (const version of changelog.versions) {
-      if (!ChangelogLib.isMatch(version, versionOrDate)) {
+      if (!ReadachangelogUtility.isMatch(version, versionOrDate)) {
         continue;
       }
+      if (limit && count + 1 > limit) {
+        break;
+      }
+      count = count + 1;
       matches.push(version);
     }
     return matches;
@@ -172,7 +169,7 @@ export class ChangelogLib {
   static async getNpmConfig(
     overrides?: Record<string, unknown>
   ): Promise<Record<string, unknown>> {
-    // Note: I bet when I set type: module in package.json to get the estlint-love to work this changed
+    // Note: I bet when I set "type": "module" in package.json to get the estlint-love to work this changed
     // eslint-disable-next-line new-cap
     const conf = new Config.default({
       // path to the npm module being run
@@ -204,7 +201,9 @@ export class ChangelogLib {
         })
         .catch((e) => {
           reject(
-            new ChangelogError(`Failed to load NPM config because ${e.message}`)
+            new ReadachangelogError(
+              `Failed to load NPM config because ${e.message}`
+            )
           );
         });
     });

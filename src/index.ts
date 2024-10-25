@@ -1,19 +1,8 @@
-export interface Toppings {
-  peppers: boolean;
-  pineapple: boolean;
-  bbqSauce: boolean;
-  cheeseType: string;
-}
-
-export async function orderPizza(
-  toppings: Toppings
-): Promise<{ message: string }> {
-  let message = "you ordered a pizza with:\n";
-  if (toppings.peppers) message += "  - peppers\n";
-  if (toppings.pineapple) message += "  - pineapple\n";
-  if (toppings.bbqSauce) message += "  - bbq\n";
-  message += `  - ${toppings.cheeseType} cheese`;
-  return {
-    message,
-  };
-}
+export * from "./cli";
+export * from "./command.view";
+export * from "./command.view.dto";
+export * from "./dto";
+export * from "./error";
+export * from "./lib";
+export * from "./lookup";
+export * from "./parser";

@@ -1,18 +1,21 @@
 import * as fs from "fs";
 import * as pacote from "pacote";
 import * as path from "path";
-import { ChangelogLookupOptions } from "./command.view.dto";
 import { COMMAND_NAME } from "./dto";
-import { ChangelogError } from "./error";
-import { ChangelogLib } from "./lib";
+import { ReadachangelogError } from "./error";
+import { ReadachangelogUtility } from "./lib";
+
+export class ReadachangelogLookupOptions {
+  cacheDir: string;
+}
 
 /**
  * Find and return the contents of a CHANGELOG.md.
  */
-export class ChangelogLookup {
-  protected readonly options: ChangelogLookupOptions;
+export class ReadachangelogLookup {
+  protected readonly options: ReadachangelogLookupOptions;
 
-  constructor(options?: Partial<ChangelogLookupOptions>) {
+  constructor(options?: Partial<ReadachangelogLookupOptions>) {
     const cacheDir = options?.cacheDir ?? `/tmp/${COMMAND_NAME}`;
     this.options = {
       cacheDir: path.resolve(cacheDir),
@@ -30,7 +33,7 @@ export class ChangelogLookup {
   }
 
   async fromNpm(specInput: string): Promise<string> {
-    const config = await ChangelogLib.getNpmConfig();
+    const config = await ReadachangelogUtility.getNpmConfig();
 
     const dir = `${this.options.cacheDir}/${specInput}`;
     const changelog = `${dir}/CHANGELOG.md`;
@@ -41,7 +44,7 @@ export class ChangelogLookup {
     }
 
     if (!fs.existsSync(changelog)) {
-      throw new ChangelogError(
+      throw new ReadachangelogError(
         `Spec ${specInput} does not have a changelog, checked ${changelog}`
       );
     }

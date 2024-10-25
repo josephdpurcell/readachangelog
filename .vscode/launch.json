@@ -7,10 +7,12 @@
     {
       "name": "Exec",
       "request": "launch",
-      "runtimeArgs": ["run", "exec", "--", "view", "changelog-parser", "1.0.0"],
+      "runtimeArgs": ["run", "exec", "--", "view", "changelog-parser"],
       "runtimeExecutable": "npm",
       "cwd": "${workspaceFolder}",
       "skipFiles": ["<node_internals>/**"],
+      "outFiles": ["${workspaceFolder}/dist/**/*.js"],
+      "smartStep": true,
       "type": "node",
       "console": "integratedTerminal",
       "sourceMaps": true,
@@ -20,7 +22,12 @@
     {
       "name": "Dist Exec",
       "request": "launch",
-      "runtimeArgs": ["dist/cli.js", "view", "changelog-parser", "1.0.0"],
+      "runtimeArgs": [
+        "dist/cli.js",
+        "view",
+        "changelog-parser",
+        "--version=1.0.0"
+      ],
       "runtimeExecutable": "node",
       "cwd": "${workspaceFolder}",
       "skipFiles": ["<node_internals>/**"],

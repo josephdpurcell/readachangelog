@@ -11,8 +11,8 @@ Primary ways to contribute:
 Here are some top TODOs I would like:
 
 - Run tests on pipeline
+- Is `changelog-parser` the best choice? There are a few options and it seemed like the most used. Not sure how well its going to work for scenarios that don't match the tests.
 - Tidy up the command... apparently you can pass extra arguments? And I originally designed it to be `readachangelog [modulespec] [versionOrDate]` but I couldn't figure out how to get optional arguments to work
-- Rename `ChangelogCli` class to be specific to the fact it's just for the `view` command, and also remove the cruft from when the command was not `commander`-ified.
 
 ## Development
 

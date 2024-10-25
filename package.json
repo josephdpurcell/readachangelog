@@ -1,7 +1,7 @@
 {
   "name": "@readachangelog/cli",
   "private": false,
-  "version": "0.0.2",
+  "version": "0.0.4",
   "description": "Keep a changelog? Read a changelog.",
   "author": "Joseph D. Purcell",
   "keywords": [
@@ -24,7 +24,8 @@
     "clean": "rimraf ./dist/ ./exec/",
     "build": "npm run clean && tsc",
     "test": "npm run build && jest",
-    "bundle": "npm run build && pkg . --out-dir ./exec/"
+    "bundle": "npm run build && pkg . --out-dir ./exec/",
+    "publish": "npm run build && npm publish --access public"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.26.0",

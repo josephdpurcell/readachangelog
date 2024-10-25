@@ -1,1 +1,1 @@
-export class ChangelogError extends Error {}
+export class ReadachangelogError extends Error {}
