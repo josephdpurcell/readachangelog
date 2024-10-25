@@ -10,6 +10,8 @@ Primary ways to contribute:
 
 Here are some top TODOs I would like:
 
+- Add the ability to filter by package name, e.g. filter to a scope such as a private NPM scope.
+- Merge some of the functionality from https://www.npmjs.com/package/changelog into here so that if a project is public and doesn't have a CHANGELOG.md it could be auto generated. Perhaps this could be expanded to say "any package that has a repository specified we can generate a changelog for". This would be especially useful for outdated.
 - Format "raw" should probably be "md" since its Markdown. The reason I used "raw" was because its the "raw" file and coincidentally the content is Markdown. There are various changelog formats and I think the only ones supported right now are Markdown so "raw" and "md" formats are the same. Something to consider if other formats are supported in the future.
 - Can this project take cues from say [check-outdated](https://github.com/jens-duttke/check-outdated)? I like how dependencies and devDependencies are separated and then color legend for major/minor/patch/reverted. Not sure how that would translate to the JSON/RAW format.
 - Is performance a concern? I'm running it fine.
@@ -63,22 +65,18 @@ Your shareable executables will be in the `./exec/` directory.
 
 Get added to the `readachangelog` org.
 
-Build:
+Update `package.json` version and `COMMAND_VERSION` in `dto.ts`.
+
+Run helper command to build and publish:
 
 ```
-npm run build
+npm run pub
 ```
 
-See what's going to be published:
+Tip: see what's going to be published:
 
 ```
 npm pack --dry-run
-```
-
-Publish:
-
-```
-npm publish --access public
 ```
 
 ## How was this project setup?

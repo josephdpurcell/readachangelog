@@ -14,9 +14,11 @@ I am new to `commander` so feedback is apprecaited on how the command could be w
 
 ## Limitations
 
-There are no shortage of opinions on CHANGELOG.md format, including filename. This project requires `CHANGELOG.md` to be at the root of the package.
+There are no shortage of opinions on CHANGELOG.md format, including filename. This project requires `CHANGELOG.md` to be at the root of the package. A LOT of packages do not have this.
 
 The CHANGELOG.md file is parsed using `changelog-parser` and matches are checked using `semver.satisfies`. Because of this you may not get certain changelogs in the reporting. For example, a version like `1.7.0-beta.2` will not get printed using the "outdated" command nor in some cases when using "view" with the "--version" flag.
+
+You could consider the [changelog](https://www.npmjs.com/package/changelog) but it requires a public respository on GitHub which is only a portion of the packages I was concerned about when creating this project.
 
 ## Install
 
@@ -56,11 +58,11 @@ Then open up that md file and enjoy. You can also use `--format=json` to get JSO
 
 Look at the help output.
 
-Also look at example reports: [docs/example-reports/](docs/example-reports/).
+Also look at example reports: [docs/example-reports/](https://github.com/josephdpurcell/readachangelog/tree/main/docs/example-reports).
 
 ## Contributing & Development
 
-See [contributing.md](docs/contributing/contributing.md) for information on how to develop or contribute to this project.
+See [contributing.md](https://github.com/josephdpurcell/readachangelog/blob/main/CONTRIBUTING.md) for information on how to develop or contribute to this project.
 
 ## Dependencies
 
