@@ -1,7 +1,7 @@
 import { Command } from "commander";
 import { OutdatedCommand } from "./command.outdated.class";
 import { OutdatedCommandInputArguments } from "./command.outdated.dto";
-import { EXIT_CODE_FAILURE } from "./dto";
+import { COMMAND_NAME, DEFAULT_CACHE_DIR, EXIT_CODE_FAILURE } from "./dto";
 
 export function initOutdatedCommand(program: Command) {
   program
@@ -9,19 +9,28 @@ export function initOutdatedCommand(program: Command) {
     .description(
       `View the CHANGELOG.md from your installed outdated version to the latest`
     )
-    .option("--no-toc", "Do not add the TOC, only applies with raw")
+    .option("--no-toc", "Do not add the TOC, only applies with raw format")
     .option("--format <format>", "Output format as json or raw", "raw")
     .option(
       "--cacheDir <dir>",
       "Cache directory when percote downloads packages",
-      "/tmp"
+      DEFAULT_CACHE_DIR
     )
     .addHelpText(
       "after",
       `
 Examples:
+  Print all outdated packages:
 
-  TODO
+    ${COMMAND_NAME} outdated
+
+    OR as JSON:
+
+    ${COMMAND_NAME} outdated --format=json
+
+  Print all outdated packages but don't have a table of contents (toc):
+
+    ${COMMAND_NAME} outdated --no-toc
 `
     )
     .action(async (options: OutdatedCommandInputArguments) => {
