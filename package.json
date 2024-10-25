@@ -1,7 +1,7 @@
 {
   "name": "@readachangelog/cli",
   "private": false,
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "Keep a changelog? Read a changelog.",
   "author": "Joseph D. Purcell",
   "keywords": [
@@ -41,6 +41,7 @@
   },
   "dependencies": {
     "@npmcli/config": "^9.0.0",
+    "axios": "1.6.1",
     "changelog-parser": "^3.0.1",
     "commander": "^12.1.0",
     "pacote": "^20.0.0",

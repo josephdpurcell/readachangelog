@@ -15,6 +15,7 @@ export class OutdatedCommandConfig {
  */
 export class OutdatedCommandInputArguments {
   // Options that have defaults are always set:
+  toc: boolean;
   format: "raw" | "json";
   cacheDir: string;
 }
@@ -23,6 +24,7 @@ export class OutdatedCommandInputArguments {
  * The actual arguments we need to run the command.
  */
 export class OutdatedCommandArguments {
+  toc: boolean;
   outputFormat: "raw" | "json";
 }
 
