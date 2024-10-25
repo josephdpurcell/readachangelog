@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.2.3
+
+- Retroactively update CHANGELOG.md, oops. Also hilarious.
+- Do not add anchor links when `--no-toc` is given.
+
 ## 1.2.2
 
 - Fix version in code, was 1.1.0 and now should be 1.2.2

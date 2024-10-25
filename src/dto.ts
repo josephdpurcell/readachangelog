@@ -1,5 +1,5 @@
 export const COMMAND_NAME = "readachangelog";
-export const COMMAND_VERSION = "1.2.2";
+export const COMMAND_VERSION = "1.2.3";
 export const EXIT_CODE_FAILURE = 0;
 
 export interface VersionOrDateMatchBase {
