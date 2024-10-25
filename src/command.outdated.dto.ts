@@ -26,7 +26,7 @@ export class OutdatedCommandArguments {
 }
 
 export class OutdatedDependency extends GetOutdatedDependency {
-  changes: ChangelogVersion[];
+  versions: ChangelogVersion[];
 }
 
 export class OutdatedOutput {

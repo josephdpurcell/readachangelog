@@ -51,7 +51,7 @@ export class OutdatedCommand {
 
       output.dependencies.push({
         ...outdatedPackage,
-        changes: sections,
+        versions: sections,
       });
     }
 
@@ -69,12 +69,12 @@ export class OutdatedCommand {
         strings.push(`**Current:** ${dependency.current}`);
         strings.push(`**Wanted:** ${dependency.wanted}`);
         strings.push(`**Latest:** ${dependency.latest}`);
-        if (dependency.changes.length < 1) {
+        if (dependency.versions.length < 1) {
           strings.push(
             `No changes are wanted, but there is a newer version available.`
           );
         } else {
-          for (const s of dependency.changes) {
+          for (const s of dependency.versions) {
             // https://common-changelog.org/ says a version is a 2nd level heading
             strings.push(`## ${s.title}\n\n${s.body}`);
           }
