@@ -10,6 +10,8 @@ Primary ways to contribute:
 
 Here are some top TODOs I would like:
 
+- Is there a better way to handle the cache dir? I think ideally I would want it to leverage npm's own cache directory, but I don't want to somehow conflict with its state.
+- Can this work with other package managers, yarn, etc?
 - Run tests on pipeline
 - Is `changelog-parser` the best choice? There are a few options and it seemed like the most used. Not sure how well its going to work for scenarios that don't match the tests.
 - Tidy up the command... apparently you can pass extra arguments? And I originally designed it to be `readachangelog [modulespec] [versionOrDate]` but I couldn't figure out how to get optional arguments to work
