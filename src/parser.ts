@@ -7,9 +7,9 @@ import * as path from "path";
 export class ChangelogVersion {
   body: string;
   date: string | null;
-  parsed: unknown;
   title: string;
   version: string;
+  // Note: the changelog-parser lib has more props than these such as "parsed"
 }
 
 export class Changelog {
@@ -19,14 +19,30 @@ export class Changelog {
 export class ChangelogParser {
   async parseFilePath(filePathInput: string): Promise<Changelog> {
     const filePath = path.resolve(filePathInput);
-    return parseChangelog.default({
+    const rawFormat = await parseChangelog.default({
       filePath,
     });
+    return this.mapToOurDto(rawFormat);
   }
 
   async parseString(content: string): Promise<Changelog> {
-    return parseChangelog.default({
+    const rawFormat = await parseChangelog.default({
       text: content,
     });
+    return this.mapToOurDto(rawFormat);
+  }
+
+  protected mapToOurDto(rawFormat: Changelog): Changelog {
+    const ourFormat: Changelog = {
+      versions: rawFormat.versions.map((version): ChangelogVersion => {
+        return {
+          title: version.title,
+          version: version.version,
+          date: version.date,
+          body: version.body,
+        };
+      }),
+    };
+    return ourFormat;
   }
 }

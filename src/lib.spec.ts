@@ -144,7 +144,6 @@ describe("ChangelogLib", () => {
       date: "1970-01-01",
       version: "1.0.0",
       body: "",
-      parsed: {},
       title: "",
     };
     const tests: IsMatchTestCase[] = [
