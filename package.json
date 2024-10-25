@@ -9,7 +9,6 @@
     "keepachangelog"
   ],
   "license": "ISC",
-  "type": "module",
   "main": "./dist/index.js",
   "bin": {
     "readachangelog": "./dist/cli.js"
