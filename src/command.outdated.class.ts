@@ -57,7 +57,9 @@ export class OutdatedCommand {
         // Since versions are 2nd level heading we have to do a repeated 1st level heading
         // Can't win every battle?
         const anchorId = this.getAnchorId(dependency.name);
-        strings.push(`<a id="${anchorId}"></a>`);
+        if (args.toc) {
+          strings.push(`<a id="${anchorId}"></a>`);
+        }
         strings.push(`# ${dependency.name}`);
         if (dependency.homepage) {
           strings.push(`**Homepage:** ${dependency.homepage}`);
