@@ -2,7 +2,7 @@ import { Command } from "commander";
 import { parseAsInt } from "./cli.utility";
 import { ViewCommand } from "./command.view.class";
 import { ViewCommandInputArguments } from "./command.view.dto";
-import { COMMAND_NAME, EXIT_CODE_FAILURE } from "./dto";
+import { COMMAND_NAME, DEFAULT_CACHE_DIR, EXIT_CODE_FAILURE } from "./dto";
 import { ReadachangelogUtility } from "./lib";
 
 export function initViewCommand(program: Command) {
@@ -32,7 +32,7 @@ export function initViewCommand(program: Command) {
     .option(
       "--cacheDir <dir>",
       "Cache directory when percote downloads packages",
-      "/tmp"
+      DEFAULT_CACHE_DIR
     )
     .addHelpText(
       "after",
@@ -40,39 +40,39 @@ export function initViewCommand(program: Command) {
 Examples:
   Print the full CHANGELOG.md in the latest version of the package:
 
-    ${COMMAND_NAME} package
+    ${COMMAND_NAME} view package
 
     OR as JSON:
 
-    ${COMMAND_NAME} package --format=json
+    ${COMMAND_NAME} view package --format=json
 
   Print the full CHANGELOG.md in the 1.0.0 version of the package:
 
-    ${COMMAND_NAME} package@1.0.0
+    ${COMMAND_NAME} view package@1.0.0
 
   Print the full CHANGELOG.md in the latest version of the package, filtered down to a date:
 
-    ${COMMAND_NAME} package --date='1970-01-01'
+    ${COMMAND_NAME} view package --date='1970-01-01'
 
     OR the entire month of January:
 
-    ${COMMAND_NAME} package --date='1970-01-*'
+    ${COMMAND_NAME} view package --date='1970-01-*'
 
     OR the entire year of 1970:
 
-    ${COMMAND_NAME} package --date='1970-*'
+    ${COMMAND_NAME} view package --date='1970-*'
 
   Print the full CHANGELOG.md in the latest version of the package, filtered down to a version:
 
-    ${COMMAND_NAME} package 1.0.0
+    ${COMMAND_NAME} view package 1.0.0
 
     OR the semver range of 1.0.0 through the latest:
 
-    ${COMMAND_NAME} package >=1.0.0
+    ${COMMAND_NAME} view package >=1.0.0
 
   Print only the latest entry in the CHANGELOG.md in the latest version of the package:
 
-    ${COMMAND_NAME} package --limit=1
+    ${COMMAND_NAME} view package --limit=1
 `
     )
     .action(

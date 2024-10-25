@@ -10,6 +10,8 @@ Primary ways to contribute:
 
 Here are some top TODOs I would like:
 
+- There needs to be a TTL on the cache dir of some kind.
+- Can we use package spec as folder names? That's what's currently happening in the cache dir without issues on Mac.
 - Add the ability to filter by package name, e.g. filter to a scope such as a private NPM scope.
 - Merge some of the functionality from https://www.npmjs.com/package/changelog into here so that if a project is public and doesn't have a CHANGELOG.md it could be auto generated. Perhaps this could be expanded to say "any package that has a repository specified we can generate a changelog for". This would be especially useful for outdated.
 - Format "raw" should probably be "md" since its Markdown. The reason I used "raw" was because its the "raw" file and coincidentally the content is Markdown. There are various changelog formats and I think the only ones supported right now are Markdown so "raw" and "md" formats are the same. Something to consider if other formats are supported in the future.
