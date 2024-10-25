@@ -16,13 +16,13 @@ I am new to `commander` so feedback is apprecaited on how the command could be w
 
 The CHANGELOG.md file is parsed using `changelog-parser` and matches are checked using `semver.satisfies`. Because of this you may not get certain changelogs in the reporting. For example, a version like `1.7.0-beta.2` will not get printed using the "outdated" command nor in some cases when using "view" with the "--version" flag.
 
-## Usage
-
-Install:
+## Install
 
 ```
 npm i -g @readachangelog/cli
 ```
+
+## Usage
 
 Read the help:
 
