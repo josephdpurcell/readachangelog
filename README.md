@@ -12,13 +12,19 @@ This project was thrown together quickly. Expect issues. This is my first CLI ut
 
 I am new to `commander` so feedback is apprecaited on how the command could be written better.
 
-## Usage
+## Limitations
 
-Install:
+There are no shortage of opinions on CHANGELOG.md format, including filename. This project requires `CHANGELOG.md` to be at the root of the package.
+
+The CHANGELOG.md file is parsed using `changelog-parser` and matches are checked using `semver.satisfies`. Because of this you may not get certain changelogs in the reporting. For example, a version like `1.7.0-beta.2` will not get printed using the "outdated" command nor in some cases when using "view" with the "--version" flag.
+
+## Install
 
 ```
 npm i -g @readachangelog/cli
 ```
+
+## Usage
 
 Read the help:
 
@@ -37,6 +43,20 @@ Or as JSON:
 ```
 keepachangelog view axios --json | jq .
 ```
+
+Woah, you can get a full report of outdated modules? Yea, you sure can. Check this out:
+
+```
+keepachangelog outdated > outdated-module-report.md
+```
+
+Then open up that md file and enjoy. You can also use `--json` to get JSON format.
+
+## Examples
+
+Look at the help output.
+
+Also look at example reports: [docs/example-reports/](docs/example-reports/).
 
 ## Contributing & Development
 
