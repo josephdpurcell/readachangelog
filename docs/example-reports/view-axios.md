@@ -1,6 +1,7 @@
 ```
 Explanation:
 
+You have axiosinstalled at version 1.6.1
 Latest axios is 1.7.1
 You ran readachangelog view axios
 ```
