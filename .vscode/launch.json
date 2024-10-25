@@ -1,0 +1,34 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Exec",
+      "request": "launch",
+      "runtimeArgs": ["run", "exec", "--", "view", "changelog-parser", "1.0.0"],
+      "runtimeExecutable": "npm",
+      "cwd": "${workspaceFolder}",
+      "skipFiles": ["<node_internals>/**"],
+      "type": "node",
+      "console": "integratedTerminal",
+      "sourceMaps": true,
+      "restart": true,
+      "autoAttachChildProcesses": true
+    },
+    {
+      "name": "Dist Exec",
+      "request": "launch",
+      "runtimeArgs": ["dist/cli.js", "view", "changelog-parser", "1.0.0"],
+      "runtimeExecutable": "node",
+      "cwd": "${workspaceFolder}",
+      "skipFiles": ["<node_internals>/**"],
+      "type": "node",
+      "console": "integratedTerminal",
+      "sourceMaps": true,
+      "restart": true,
+      "autoAttachChildProcesses": true
+    }
+  ]
+}

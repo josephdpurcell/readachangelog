@@ -10,7 +10,8 @@ import {
 } from "@npmcli/config/lib/definitions";
 import * as path from "path";
 import * as semver from "semver";
-import type { ChangelogCliInputArguments, VersionOrDateMatch } from "./dto";
+import { ChangelogCliInputArguments } from "./command.view.dto";
+import type { VersionOrDateMatch } from "./dto";
 import { ChangelogError } from "./error";
 import type { Changelog, ChangelogVersion } from "./parser";
 

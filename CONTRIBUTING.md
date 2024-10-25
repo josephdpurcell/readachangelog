@@ -6,6 +6,14 @@ Primary ways to contribute:
 2. Adding tests
 3. Submitting PRs
 
+## TODOs
+
+Here are some top TODOs I would like:
+
+- Run tests on pipeline
+- Tidy up the command... apparently you can pass extra arguments? And I originally designed it to be `readachangelog [modulespec] [versionOrDate]` but I couldn't figure out how to get optional arguments to work
+- Rename `ChangelogCli` class to be specific to the fact it's just for the `view` command, and also remove the cruft from when the command was not `commander`-ified.
+
 ## Development
 
 ### **dev**
@@ -65,3 +73,18 @@ Publish:
 ```
 npm publish --access public
 ```
+
+## How was this project setup?
+
+Just in case I need to do this again I started with the template [khalidx/typescript-cli-starter](https://github.com/khalidx/typescript-cli-starter) and then:
+
+- Modified package.json `private: false` because it kept failing on trying to publish private
+- Changed package.json to have `"bin": { "readachangelog": "./dist/cli.js" }`
+- `npm i -D eslint-config-love` then added `eslint.config.js` per https://www.npmjs.com/package/eslint-config-love, but then had to refactor it to use `module.exports = {}` syntax
+- Added `"type": "module"` to package.json to get eslint to work
+- Modified `tsconfig.json`:
+  - `"strictPropertyInitialization": false,`
+  - `"useUnknownInCatchVariables": false,`
+  - `"strictNullChecks": true,`
+- I did away w ava since I'm not familiar and used jest
+- Everything was SUPER outdated; commander was v2 and latest v12

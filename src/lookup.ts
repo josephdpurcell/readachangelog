@@ -1,7 +1,8 @@
 import * as fs from "fs";
 import * as pacote from "pacote";
 import * as path from "path";
-import { COMMAND_NAME, type ChangelogLookupOptions } from "./dto";
+import { ChangelogLookupOptions } from "./command.view.dto";
+import { COMMAND_NAME } from "./dto";
 import { ChangelogError } from "./error";
 import { ChangelogLib } from "./lib";
 

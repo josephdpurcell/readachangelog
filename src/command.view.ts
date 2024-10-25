@@ -1,10 +1,9 @@
 import {
-  COMMAND_NAME,
-  EXIT_CODE_FAILURE,
-  type ChangelogCliArguments,
-  type ChangelogCliConfig,
-  type ChangelogCliInputArguments,
-} from "./dto";
+  ChangelogCliArguments,
+  ChangelogCliConfig,
+  ChangelogCliInputArguments,
+} from "./command.view.dto";
+import { COMMAND_NAME, COMMAND_VERSION, EXIT_CODE_FAILURE } from "./dto";
 import { ChangelogError } from "./error";
 import { ChangelogLib } from "./lib";
 import { ChangelogLookup } from "./lookup";
@@ -47,7 +46,7 @@ export class ChangelogCli {
    */
   async run(args: ChangelogCliArguments): Promise<void> {
     // Get the changelog contents
-    const content = await this.lookup.lookup(args.moduleName);
+    const content = await this.lookup.lookup(args.moduleSpec);
 
     // If we are printing the raw file don't do ANY processing.
     if (args.versionOrDate.type === "all" && args.outputFormat === "raw") {
@@ -83,7 +82,7 @@ export class ChangelogCli {
 
   async help(): Promise<void> {
     console.log(`NAME
-    ${COMMAND_NAME} - read changelog data from npm modules on any registry
+    ${COMMAND_NAME} v${COMMAND_VERSION} - read changelog data from npm modules on any registry
 
 SYNOPSIS
     changelog [module_spec] [version]
@@ -146,7 +145,7 @@ EXAMPLES
     const versionOrDate = ChangelogLib.parseVersionOrDate(args.versionOrDate);
 
     return {
-      moduleName: args.moduleName,
+      moduleSpec: args.moduleName,
       versionOrDate,
       outputFormat: "raw",
     };

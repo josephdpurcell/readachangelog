@@ -18,6 +18,8 @@
     "!dist/**/*.test.js"
   ],
   "scripts": {
+    "exec": "npm run build && node dist/cli.js",
+    "distexec": "node dist/cli.js",
     "dev": "ts-node ./src/cli.ts",
     "clean": "rimraf ./dist/ ./exec/",
     "build": "npm run clean && tsc",
