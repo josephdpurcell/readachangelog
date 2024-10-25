@@ -9,7 +9,7 @@
       "type": "dependencies",
       "homepage": "https://axios-http.com",
       "name": "axios",
-      "changes": [
+      "versions": [
         {
           "title": "[1.7.7](https://github.com/axios/axios/compare/v1.7.6...v1.7.7) (2024-08-31)",
           "version": "1.7.7",
