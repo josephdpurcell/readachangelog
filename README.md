@@ -35,22 +35,22 @@ readachangelog --help
 For example:
 
 ```
-keepachangelog view axios | less
+readachangelog view axios | less
 ```
 
 Or as JSON:
 
 ```
-keepachangelog view axios --json | jq .
+readachangelog view axios --format=json | jq .
 ```
 
 Woah, you can get a full report of outdated modules? Yea, you sure can. Check this out:
 
 ```
-keepachangelog outdated > outdated-module-report.md
+readachangelog outdated > outdated-module-report.md
 ```
 
-Then open up that md file and enjoy. You can also use `--json` to get JSON format.
+Then open up that md file and enjoy. You can also use `--format=json` to get JSON format.
 
 ## Examples
 
