@@ -1,5 +1,8 @@
 {
   "compilerOptions": {
+    "strictPropertyInitialization": false,
+    "useUnknownInCatchVariables": false,
+    "strictNullChecks": true,
     "rootDir": "src",
     "outDir": "dist",
     "module": "commonjs",

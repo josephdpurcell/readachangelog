@@ -9,6 +9,7 @@
     "keepachangelog"
   ],
   "license": "ISC",
+  "type": "module",
   "main": "./dist/index.js",
   "bin": {
     "readachangelog": "./dist/cli.js"
@@ -21,17 +22,24 @@
     "dev": "ts-node ./src/cli.ts",
     "clean": "rimraf ./dist/ ./exec/",
     "build": "npm run clean && tsc",
-    "test": "npm run build && ava --verbose",
+    "test": "npm run build && jest",
     "bundle": "npm run build && pkg . --out-dir ./exec/"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.26.0",
+    "@babel/preset-typescript": "^7.26.0",
+    "@types/jest": "^29.5.14",
     "ava": "^2.2.0",
+    "eslint-config-love": "^89.0.1",
+    "jest": "^29.7.0",
     "pkg": "^4.4.0",
     "rimraf": "^2.6.3",
-    "ts-node": "^8.3.0",
-    "typescript": "^3.5.3"
+    "ts-node": "^8.3.0"
   },
   "dependencies": {
-    "commander": "^2.20.0"
+    "@npmcli/config": "^9.0.0",
+    "changelog-parser": "^3.0.1",
+    "commander": "^2.20.0",
+    "pacote": "^20.0.0"
   }
 }
