@@ -8,7 +8,15 @@ Latest is 1.7.1
 You ran readachangelog outdated and this report would be generated
 ```
 
+# Table of Contents
+
+- [axios](#axios): 1.6.1 --> 1.7.7 (Latest 1.7.7)
+
+<a id="axios"></a>
+
 # axios
+
+**Homepage:** https://axios-http.com
 
 **Current:** 1.6.1
 
