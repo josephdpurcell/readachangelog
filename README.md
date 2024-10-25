@@ -1,58 +1,45 @@
-# typescript-cli-starter
+# @readachangelog/cli
 
-A simple and zero-opinion typescript starter template for building cross-platform command line applications.
+Keep a changelog? Read a changelog.
 
-![GitHub package.json dynamic](https://img.shields.io/github/package-json/keywords/khalidx/typescript-cli-starter.svg?style=flat-square)
+## Background
 
-![GitHub](https://img.shields.io/github/license/khalidx/typescript-cli-starter.svg?style=flat-square)
-![GitHub package.json version](https://img.shields.io/github/package-json/v/khalidx/typescript-cli-starter.svg?style=flat-square)
-![GitHub top language](https://img.shields.io/github/languages/top/khalidx/typescript-cli-starter.svg?style=flat-square)
+Ever wanted to read a CHANGELOG.md? Sure, we've all been there. But have you tried doing it from a terminal? Yikes.
 
-![GitHub last commit](https://img.shields.io/github/last-commit/khalidx/typescript-cli-starter.svg?style=flat-square)
+This project is intended to make that easier by providing a CLI tool to read a CHANGELOG.md file from any NPM repository package or any registry you've configured in your NPM config (e.g. `.npmrc`). Yep, it should work with private repositories.
 
-Includes:
-
-- [TypeScript](https://www.typescriptlang.org/), for writing good code
-- [Ava](https://www.npmjs.com/package/ava), for writing good tests
-- [Commander](https://www.npmjs.com/package/commander), for building CLI applications
-- [Pkg](https://www.npmjs.com/package/pkg), for building cross-platform native executables
-
-Your application will be installable from `npm` or by sharing your native executables.
+This project was thrown together quickly. Expect issues. This is my first CLI utility I've ever built in nodejs and I chose to build it with [khalidx/typescript-cli-starter](https://github.com/khalidx/typescript-cli-starter) to deal with the wiring up of the executable. It was lighter weight than [typescript-template/cli](https://www.npmjs.com/package/@typescript-template/cli).
 
 ## Usage
 
-### **dev**
+Install:
 
-`npm run dev`
+```
+npm i -g @readachangelog/cli
+```
 
-Runs the CLI application.
+Profit:
 
-You can pass arguments to your application by running `npm run dev -- --your-argument`. The extra `--` is so that your arguments are passed to your CLI application, and not `npm`.
+```
+readachangelog --help
+```
 
-### **clean**
+## Contributing & Development
 
-`npm run clean`
+See [contributing.md](docs/contributing/contributing.md) for information on how to develop or contribute to this project.
 
-Removes any built code and any built executables.
+## Dependencies
 
-### **build**
+- [changelog-parser](https://www.npmjs.com/package/changelog-parser) ISC
+- [@npmcli/config](https://www.npmjs.com/package/@npmcli/config) ISC
+- [pacote](https://www.npmjs.com/package/pacote) ISC
+- [semver](https://www.npmjs.com/package/semver) ISC
 
-`npm run build`
+Template for this project built with [typescript-template/cli](https://www.npmjs.com/package/@typescript-template/cli) MIT.
 
-Cleans, then builds the TypeScript code.
+## Notes for the Teamplate
 
-Your built code will be in the `./dist/` directory.
-
-### **test**
-
-`npm run test`
-
-Cleans, then builds, and tests the built code.
-
-### **bundle**
-
-`npm run bundle`
-
-Cleans, then builds, then bundles into native executables for Windows, Mac, and Linux.
-
-Your shareable executables will be in the `./exec/` directory.
+- Modified package.json `private: false` because it kept failing on trying to publish private
+- Modified scripts/publish to have `npm publish --access public` because it kept failing on trying to publish private
+- Have to run tests via `npm run test`, hopefully there is some way to do this with VSCode so you can quickly run a specific test
+- I was initially confused on `scripts/` vs `src/bin/`. It makes sense now.

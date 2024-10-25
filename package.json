@@ -1,15 +1,14 @@
 {
-  "name": "typescript-cli-starter",
-  "private": true,
-  "version": "1.0.0",
-  "description": "A simple and zero-opinion typescript starter template for building cross-platform command line applications.",
-  "author": "Khalid Zoabi <kzoabi@outlook.com>",
+  "name": "readachangelog",
+  "private": false,
+  "version": "0.0.1",
+  "description": "Keep a changelog? Read a changelog.",
+  "author": "Joseph D. Purcell",
   "keywords": [
-    "typescript",
-    "cli",
-    "starter"
+    "changelog",
+    "keepachangelog"
   ],
-  "license": "MIT",
+  "license": "ISC",
   "main": "./dist/index.js",
   "bin": "./dist/cli.js",
   "files": [
