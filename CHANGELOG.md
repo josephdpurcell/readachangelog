@@ -1,5 +1,6 @@
 # readachangelog - Changelog
 
-## 0.0.1
+## Changes Prior to 1.0.0
 
+- More testing
 - Add initial code

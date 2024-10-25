@@ -10,6 +10,8 @@ This project is intended to make that easier by providing a CLI tool to read a C
 
 This project was thrown together quickly. Expect issues. This is my first CLI utility I've ever built in nodejs and I chose to build it with [khalidx/typescript-cli-starter](https://github.com/khalidx/typescript-cli-starter) to deal with the wiring up of the executable. It was lighter weight than [typescript-template/cli](https://www.npmjs.com/package/@typescript-template/cli).
 
+I am new to `commander` so feedback is apprecaited on how the command could be written better.
+
 ## Usage
 
 Install:
@@ -18,10 +20,22 @@ Install:
 npm i -g @readachangelog/cli
 ```
 
-Profit:
+Read the help:
 
 ```
 readachangelog --help
+```
+
+For example:
+
+```
+keepachangelog view axios | less
+```
+
+Or as JSON:
+
+```
+keepachangelog view axios --json | jq .
 ```
 
 ## Contributing & Development
@@ -30,14 +44,10 @@ See [contributing.md](docs/contributing/contributing.md) for information on how 
 
 ## Dependencies
 
-- [changelog-parser](https://www.npmjs.com/package/changelog-parser) ISC
-- [@npmcli/config](https://www.npmjs.com/package/@npmcli/config) ISC
-- [pacote](https://www.npmjs.com/package/pacote) ISC
-- [semver](https://www.npmjs.com/package/semver) ISC
+What npm packages does this project depend on (and what are the licenses)?
 
-Template for this project built with [typescript-template/cli](https://www.npmjs.com/package/@typescript-template/cli) MIT.
-
-## Notes for the Teamplate
-
-- Modified package.json `private: false` because it kept failing on trying to publish private
-- Changed package.json to have `"bin": { "readachangelog": "./dist/cli.js" }`
+- [@npmcli/config](https://www.npmjs.com/package/@npmcli/config) (ISC)
+- [changelog-parser](https://www.npmjs.com/package/changelog-parser) (ISC)
+- [commander](https://www.npmjs.com/package/commander) (MIT)
+- [pacote](https://www.npmjs.com/package/pacote) (ISC)
+- [semver](https://www.npmjs.com/package/semver) (ISC)
