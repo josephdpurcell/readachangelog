@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.2.4
+
+- Move default cache dir from `/tmp` to `/tmp/readachangelog/cache`
+- Update examples in help output, which were also wrong
+
 ## 1.2.3
 
 - Retroactively update CHANGELOG.md, oops. Also hilarious.
