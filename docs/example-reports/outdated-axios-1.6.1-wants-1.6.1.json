@@ -1,0 +1,15 @@
+{
+  "dependencies": [
+    {
+      "current": "1.6.1",
+      "wanted": "1.6.1",
+      "latest": "1.7.7",
+      "dependent": "readachangelog",
+      "location": "/Users/jpurcell/src/github.com/josephdpurcell/readachangelog/node_modules/axios",
+      "type": "dependencies",
+      "homepage": "https://axios-http.com",
+      "name": "axios",
+      "changes": []
+    }
+  ]
+}
