@@ -46,6 +46,22 @@ Your shareable executables will be in the `./exec/` directory.
 
 ## Publishing
 
+Get added to the `readachangelog` org.
+
+Build:
+
+```
+npm run build
+```
+
+See what's going to be published:
+
+```
+npm pack --dry-run
+```
+
+Publish:
+
 ```
 npm publish --access public
 ```

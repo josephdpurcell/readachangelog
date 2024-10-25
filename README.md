@@ -31,13 +31,21 @@ See [contributing.md](docs/contributing/contributing.md) for information on how 
 ## Dependencies
 
 - [changelog-parser](https://www.npmjs.com/package/changelog-parser) ISC
+- [commander](https://www.npmjs.com/package/commander) MIT
 - [@npmcli/config](https://www.npmjs.com/package/@npmcli/config) ISC
 - [pacote](https://www.npmjs.com/package/pacote) ISC
 - [semver](https://www.npmjs.com/package/semver) ISC
 
-Template for this project built with [typescript-template/cli](https://www.npmjs.com/package/@typescript-template/cli) MIT.
+## Things I did from template...
 
-## Notes for the Teamplate
+Just in case I need to do this again I started with the template [khalidx/typescript-cli-starter](https://github.com/khalidx/typescript-cli-starter) and theN:
 
 - Modified package.json `private: false` because it kept failing on trying to publish private
 - Changed package.json to have `"bin": { "readachangelog": "./dist/cli.js" }`
+- `npm i -D eslint-config-love` then added `eslint.config.js` per https://www.npmjs.com/package/eslint-config-love, but then had to refactor it to use `module.exports = {}` syntax
+- Added `"type": "module"` to package.json to get eslint to work
+- Modified `tsconfig.json`:
+  - `"strictPropertyInitialization": false,`
+  - `"useUnknownInCatchVariables": false,`
+  - `"strictNullChecks": true,`
+- I did away w ava since I'm not familiar and used jest
