@@ -6,7 +6,7 @@ export class GetOutdatedDependenciesOptions {
 }
 
 // TODO confirm these types
-export class GetOutdatedDependency {
+export class OutdatedDependency {
   current: string;
   wanted: string;
   latest: string;
@@ -17,7 +17,7 @@ export class GetOutdatedDependency {
   name: string;
 }
 
-export type OutdatedDependencies = Record<string, GetOutdatedDependency>;
+export type OutdatedDependencies = Record<string, OutdatedDependency>;
 
 /**
  * Handle capturing outdated.

@@ -1,5 +1,6 @@
 import { ReadachangelogLookupOptions } from "./lookup";
-import { GetOutdatedDependency } from "./outdated";
+import { OutdatedDependency } from "./outdated";
+
 import { ChangelogVersion } from "./parser";
 
 /**
@@ -25,10 +26,11 @@ export class OutdatedCommandArguments {
   outputFormat: "raw" | "json";
 }
 
-export class OutdatedDependency extends GetOutdatedDependency {
+export class OutdatedDependencyOutput extends OutdatedDependency {
+  hasChangelog: boolean;
   versions: ChangelogVersion[];
 }
 
 export class OutdatedOutput {
-  dependencies: OutdatedDependency[];
+  dependencies: OutdatedDependencyOutput[];
 }
