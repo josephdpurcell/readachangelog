@@ -63,7 +63,9 @@ export class OutdatedCommand {
     if (args.outputFormat === "raw") {
       const strings: string[] = [];
       for (const dependency of output.dependencies) {
-        strings.push(`## ${dependency.name}`);
+        // Since versions are 2nd level heading we have to do a repeated 1st level heading
+        // Can't win every battle?
+        strings.push(`# ${dependency.name}`);
         strings.push(`**Current:** ${dependency.current}`);
         strings.push(`**Wanted:** ${dependency.wanted}`);
         strings.push(`**Latest:** ${dependency.latest}`);
@@ -73,8 +75,8 @@ export class OutdatedCommand {
           );
         } else {
           for (const s of dependency.changes) {
-            // Note: decided to not add ## since it doesn't format in Slack
-            strings.push(`${s.title}\n\n${s.body}`);
+            // https://common-changelog.org/ says a version is a 2nd level heading
+            strings.push(`## ${s.title}\n\n${s.body}`);
           }
         }
       }

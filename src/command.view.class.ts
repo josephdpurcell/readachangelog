@@ -55,9 +55,9 @@ export class ViewCommand {
       return;
     }
     if (args.outputFormat === "raw") {
+      // https://common-changelog.org/ says a version is a 2nd level heading
       const strings = sections.map((s) => {
-        // Note: decided to not add ## since it doesn't format in Slack
-        return `${s.title}\n\n${s.body}`;
+        return `## ${s.title}\n\n${s.body}`;
       });
       console.log(strings.join("\n\n"));
       return;
