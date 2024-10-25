@@ -37,9 +37,27 @@ export class OutdatedCommand {
 
     if (args.outputFormat === "raw") {
       const strings: string[] = [];
+
+      // Add TOC
+      if (args.toc && output.dependencies) {
+        const toc: string[] = [];
+        toc.push(`# Table of Contents\n`);
+        for (const dependency of output.dependencies) {
+          const anchorId = this.getAnchorId(dependency.name);
+          let tocLine = `- [${dependency.name}](#${anchorId}): ${dependency.current} --> ${dependency.wanted} (Latest ${dependency.latest})`;
+          if (!dependency.hasChangelog) {
+            tocLine = tocLine + ` MISSING CHANGELOG.md`;
+          }
+          toc.push(tocLine);
+        }
+        strings.push(toc.join("\n"));
+      }
+
       for (const dependency of output.dependencies) {
         // Since versions are 2nd level heading we have to do a repeated 1st level heading
         // Can't win every battle?
+        const anchorId = this.getAnchorId(dependency.name);
+        strings.push(`<a id="${anchorId}"></a>`);
         strings.push(`# ${dependency.name}`);
         if (dependency.homepage) {
           strings.push(`**Homepage:** ${dependency.homepage}`);
@@ -117,5 +135,10 @@ export class OutdatedCommand {
       undefined
     );
     return sections;
+  }
+
+  protected getAnchorId(name: string): string {
+    const result = name.replace(/[^a-zA-Z0-9-_]/g, "");
+    return result;
   }
 }
