@@ -1,7 +1,7 @@
 {
   "name": "@readachangelog/cli",
   "private": false,
-  "version": "1.2.6",
+  "version": "1.3.0",
   "description": "Keep a changelog? Read a changelog.",
   "author": "Joseph D. Purcell",
   "keywords": [
@@ -15,6 +15,7 @@
     "readachangelog": "./dist/cli.js"
   },
   "files": [
+    "CHANGELOG.md",
     "dist/**/*",
     "!dist/**/*.test.js"
   ],

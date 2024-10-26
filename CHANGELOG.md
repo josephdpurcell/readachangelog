@@ -3,6 +3,11 @@
 ## 1.3.0
 
 - Add broader changelog name checks, see [lookup.md](https://github.com/josephdpurcell/readachangelog/tree/main/docs/lookup.md).
+- Properly add CHANGELOG.md to NPM package. I see why this is a problem.
+
+## 1.2.7
+
+- Accidentally published 1.2.7 instead of 1.3.0
 
 ## 1.2.5
 
