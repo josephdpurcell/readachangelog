@@ -41,7 +41,6 @@
   },
   "dependencies": {
     "@npmcli/config": "^9.0.0",
-    "axios": "1.6.1",
     "changelog-parser": "^3.0.1",
     "commander": "^12.1.0",
     "pacote": "^20.0.0",
