@@ -16,6 +16,7 @@ export class OutdatedCommandConfig {
 export class OutdatedCommandInputArguments {
   filterScope?: string;
   // Options that have defaults are always set:
+  header: boolean;
   toc: boolean;
   format: "raw" | "json";
   cacheDir: string;
@@ -29,6 +30,7 @@ export class OutdatedPackageFilter {
  * The actual arguments we need to run the command.
  */
 export class OutdatedCommandArguments {
+  header: boolean;
   toc: boolean;
   outputFormat: "raw" | "json";
   filter?: OutdatedPackageFilter;

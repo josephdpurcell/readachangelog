@@ -43,45 +43,60 @@ export class OutdatedCommand {
     if (args.outputFormat === "raw") {
       const strings: string[] = [];
 
-      // Add TOC
-      if (args.toc && output.dependencies) {
-        const toc: string[] = [];
-        toc.push(`# Table of Contents\n`);
-        for (const dependency of output.dependencies) {
-          const anchorId = this.getAnchorId(dependency.name);
-          let tocLine = `- [${dependency.name}](#${anchorId}): ${dependency.current} --> ${dependency.wanted} (Latest ${dependency.latest})`;
-          if (!dependency.hasChangelog) {
-            tocLine = tocLine + ` MISSING CHANGELOG.md`;
+      // Add header
+      if (args.header) {
+        strings.push(`# Changelog`);
+        if (args.filter) {
+          strings.push(`**Filter**:`);
+          if (args.filter.scope) {
+            strings.push(`- Scope: ${args.filter.scope}`);
           }
-          toc.push(tocLine);
         }
-        strings.push(toc.join("\n"));
       }
 
-      for (const dependency of output.dependencies) {
-        // Since versions are 2nd level heading we have to do a repeated 1st level heading
-        // Can't win every battle?
-        const anchorId = this.getAnchorId(dependency.name);
+      if (!output.dependencies.length) {
+        strings.push("No outdated dependencies found");
+      } else {
+        // Add TOC
         if (args.toc) {
-          strings.push(`<a id="${anchorId}"></a>`);
+          const toc: string[] = [];
+          toc.push(`# Table of Contents\n`);
+          for (const dependency of output.dependencies) {
+            const anchorId = this.getAnchorId(dependency.name);
+            let tocLine = `- [${dependency.name}](#${anchorId}): ${dependency.current} --> ${dependency.wanted} (Latest ${dependency.latest})`;
+            if (!dependency.hasChangelog) {
+              tocLine = tocLine + ` MISSING CHANGELOG.md`;
+            }
+            toc.push(tocLine);
+          }
+          strings.push(toc.join("\n"));
         }
-        strings.push(`# ${dependency.name}`);
-        if (dependency.homepage) {
-          strings.push(`**Homepage:** ${dependency.homepage}`);
-        }
-        strings.push(`**Current:** ${dependency.current}`);
-        strings.push(`**Wanted:** ${dependency.wanted}`);
-        strings.push(`**Latest:** ${dependency.latest}`);
-        if (!dependency.hasChangelog) {
-          strings.push(`No CHANGELOG.md content was found.`);
-        } else if (dependency.versions.length < 1) {
-          strings.push(
-            `No changes are wanted, but there is a newer version available.`
-          );
-        } else {
-          for (const s of dependency.versions) {
-            // https://common-changelog.org/ says a version is a 2nd level heading
-            strings.push(`## ${s.title}\n\n${s.body}`);
+
+        for (const dependency of output.dependencies) {
+          // Since versions are 2nd level heading we have to do a repeated 1st level heading
+          // Can't win every battle?
+          const anchorId = this.getAnchorId(dependency.name);
+          if (args.toc) {
+            strings.push(`<a id="${anchorId}"></a>`);
+          }
+          strings.push(`# ${dependency.name}`);
+          if (dependency.homepage) {
+            strings.push(`**Homepage:** ${dependency.homepage}`);
+          }
+          strings.push(`**Current:** ${dependency.current}`);
+          strings.push(`**Wanted:** ${dependency.wanted}`);
+          strings.push(`**Latest:** ${dependency.latest}`);
+          if (!dependency.hasChangelog) {
+            strings.push(`No CHANGELOG.md content was found.`);
+          } else if (dependency.versions.length < 1) {
+            strings.push(
+              `No changes are wanted, but there is a newer version available.`
+            );
+          } else {
+            for (const s of dependency.versions) {
+              // https://common-changelog.org/ says a version is a 2nd level heading
+              strings.push(`## ${s.title}\n\n${s.body}`);
+            }
           }
         }
       }

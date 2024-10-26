@@ -9,6 +9,10 @@ export function initOutdatedCommand(program: Command) {
     .description(
       `View the CHANGELOG.md from your installed outdated version to the latest`
     )
+    .option(
+      "--no-header",
+      "Do not add the header, only applies with raw format"
+    )
     .option("--no-toc", "Do not add the TOC, only applies with raw format")
     .option("--format <format>", "Output format as json or raw", "raw")
     .option(
@@ -55,6 +59,8 @@ Examples:
           // The way you get to true is having --no-toc with no default, and then options.toc will be true if --no-toc is not passed.
           // Makes sense when you know it.
           toc: options.toc,
+          // Header works the same as toc
+          header: options.header,
           filter: filter,
         });
       } catch (e) {

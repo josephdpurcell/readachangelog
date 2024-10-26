@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.4.1
+
+- Fix version because NPM didn't pick it up for some reason.
+- For outdated command:
+  - Add a header to the raw output with a `--no-header` option.
+  - Ensure the TOC is only printed if there are contents, otherwise print there are no outdated.
+
 ## 1.4.0
 
 - Add `--filter-scope` to the outdated command. This allows you to view only outdated packages within a given NPM scope.

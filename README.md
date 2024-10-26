@@ -60,7 +60,7 @@ Woah, you can get a full report of outdated modules? Yea, you sure can. Check th
 readachangelog outdated > outdated-module-report.md
 ```
 
-Then open up that md file and enjoy. You can also use `--format=json` to get JSON format.
+Then open up that md file and enjoy. You can also use `--format=json` to get JSON format and even filter by NPM scope like `--filter-scope=@google-cloud`.
 
 ## Examples
 
