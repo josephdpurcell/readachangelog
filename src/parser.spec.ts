@@ -1,7 +1,6 @@
 import * as fs from "fs";
+import { TEST_FILES_DIR } from "./dto";
 import { ChangelogParser } from "./parser";
-
-const TEST_FILES_DIR = "src/test-files";
 
 describe("ChangelogParser", () => {
   const parser = new ChangelogParser();
