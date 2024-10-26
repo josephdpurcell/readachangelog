@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.4.0
+
+- Add `--filter-scope` to the outdated command. This allows you to view only outdated packages within a given NPM scope.
+
 ## 1.3.1
 
 - Fix cache. How? How indeed. By only caching what we can, which is exactly 1 scenario: when you specify an exact package version because packages are immutable. All other cases will pull from NPM which will use its own cache if it exists so this is still performant for the cases I've tested.

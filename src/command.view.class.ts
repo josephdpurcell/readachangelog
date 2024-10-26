@@ -37,7 +37,7 @@ export class ViewCommand {
 
     // Parse the changelog
     const parsed = await this.parser.parseString(content);
-    const sections = ReadachangelogUtility.getMatches(
+    const sections = ReadachangelogUtility.getMatchingSections(
       parsed,
       args.versionOrDate,
       limit
