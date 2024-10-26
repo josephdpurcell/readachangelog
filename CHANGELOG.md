@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.4.2
+
+- Add analysis about parsing performance for changelog-parser
+
 ## 1.4.1
 
 - Fix version because NPM didn't pick it up for some reason.
