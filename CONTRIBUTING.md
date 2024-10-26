@@ -75,6 +75,8 @@ Run helper command to build and publish:
 npm run pub
 ```
 
+Note: the pub command requires `jq` because I keep forgetting to bump the version and so I added a lil helper.
+
 Tip: see what's going to be published:
 
 ```
