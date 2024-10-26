@@ -11,4 +11,5 @@ export * from "./error";
 export * from "./file-matcher";
 export * from "./lib";
 export * from "./lookup";
+export * from "./package-spec";
 export * from "./parser";

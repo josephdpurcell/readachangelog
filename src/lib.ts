@@ -14,6 +14,8 @@ import type { VersionOrDateMatch } from "./dto";
 import { ReadachangelogError } from "./error";
 import type { Changelog, ChangelogVersion } from "./parser";
 
+export type NpmConfig = Record<string, unknown>;
+
 /**
  * Utility functions to help with the CLI.
  *
@@ -168,7 +170,7 @@ export class ReadachangelogUtility {
 
   static async getNpmConfig(
     overrides?: Record<string, unknown>
-  ): Promise<Record<string, unknown>> {
+  ): Promise<NpmConfig> {
     // Note: I bet when I set "type": "module" in package.json to get the estlint-love to work this changed
     // eslint-disable-next-line new-cap
     const conf = new Config.default({
