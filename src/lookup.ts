@@ -4,7 +4,7 @@ import * as path from "path";
 import { DEFAULT_CACHE_DIR } from "./dto";
 import { ReadachangelogError } from "./error";
 import { FileMatcher } from "./file-matcher";
-import { ReadachangelogUtility } from "./lib";
+import { NpmConfig, ReadachangelogUtility } from "./lib";
 import { NpaSpec, PackageSpec } from "./package-spec";
 
 export class ReadachangelogLookupOptions {
@@ -18,6 +18,7 @@ export class ReadachangelogLookup {
   protected readonly options: ReadachangelogLookupOptions;
   protected readonly fileMatcher: FileMatcher;
   protected readonly packageSpec: PackageSpec;
+  protected npmConfig: NpmConfig;
 
   constructor(options?: Partial<ReadachangelogLookupOptions>) {
     const cacheDir = options?.cacheDir ?? DEFAULT_CACHE_DIR;
@@ -39,10 +40,10 @@ export class ReadachangelogLookup {
   }
 
   async fromNpm(specInput: string): Promise<string> {
-    const config = await ReadachangelogUtility.getNpmConfig();
+    const npmConfig = await this.getNpmConfig();
 
     // Build a directory name that is safe.
-    const spec = this.packageSpec.fromInput(specInput, config);
+    const spec = this.packageSpec.fromInput(specInput, npmConfig);
     const packagePath = this.getCachePackagePath(specInput, spec);
     const dir = `${this.options.cacheDir}/${packagePath}`;
 
@@ -53,7 +54,7 @@ export class ReadachangelogLookup {
     // package from NPM cache and extracting into readachangelog cache.
     if (spec.type !== "version" || !fs.existsSync(dir)) {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
-      await pacote.extract(specInput, dir, config);
+      await pacote.extract(specInput, dir, npmConfig);
     }
 
     const matchedFiles = await this.fileMatcher.getMatchesForDir(dir);
@@ -74,6 +75,17 @@ export class ReadachangelogLookup {
         `Spec ${specInput} has ${changelog} that could not be read because ${e.message}`
       );
     }
+  }
+
+  /**
+   * TODO: there must be a better place for this. Putting this on the lookup
+   * requires the outdated command to know about the lookup command.
+   */
+  async getNpmConfig(): Promise<NpmConfig> {
+    if (!this.npmConfig) {
+      this.npmConfig = await ReadachangelogUtility.getNpmConfig();
+    }
+    return this.npmConfig;
   }
 
   getCachePackagePath(specInput: string, spec: NpaSpec): string {

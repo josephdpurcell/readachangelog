@@ -12,6 +12,10 @@ export function initOutdatedCommand(program: Command) {
     .option("--no-toc", "Do not add the TOC, only applies with raw format")
     .option("--format <format>", "Output format as json or raw", "raw")
     .option(
+      "--filter-scope <scope>",
+      "Filter packages to only those with scope"
+    )
+    .option(
       "--cacheDir <dir>",
       "Cache directory when percote downloads packages",
       DEFAULT_CACHE_DIR
@@ -40,6 +44,9 @@ Examples:
             cacheDir: options.cacheDir,
           },
         });
+        const filter = options.filterScope
+          ? { scope: options.filterScope }
+          : undefined;
 
         command.run({
           outputFormat: options.format,
@@ -48,6 +55,7 @@ Examples:
           // The way you get to true is having --no-toc with no default, and then options.toc will be true if --no-toc is not passed.
           // Makes sense when you know it.
           toc: options.toc,
+          filter: filter,
         });
       } catch (e) {
         if (e instanceof Error) {

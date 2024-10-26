@@ -2,11 +2,13 @@ import {
   OutdatedCommandArguments,
   OutdatedCommandConfig,
   OutdatedOutput,
+  OutdatedPackageFilter,
 } from "./command.outdated.dto";
 import { ReadachangelogError } from "./error";
 import { ReadachangelogUtility } from "./lib";
 import { ReadachangelogLookup } from "./lookup";
 import { Outdated, OutdatedDependencies, OutdatedDependency } from "./outdated";
+import { PackageSpec } from "./package-spec";
 import { ChangelogParser, ChangelogVersion } from "./parser";
 
 /**
@@ -16,19 +18,22 @@ export class OutdatedCommand {
   protected readonly lookup: ReadachangelogLookup;
   protected readonly parser: ChangelogParser;
   protected readonly outdated: Outdated;
+  protected readonly packageSpec: PackageSpec;
 
   constructor(options?: Partial<OutdatedCommandConfig>) {
     this.lookup = new ReadachangelogLookup(options?.lookupOptions);
     this.parser = new ChangelogParser();
     this.outdated = new Outdated();
+    this.packageSpec = new PackageSpec();
   }
 
   /**
    * Run with the given args.
    */
   async run(args: OutdatedCommandArguments): Promise<void> {
-    const outdatedDeps = await this.outdated.getOutdatedDependencies();
-    const output = await this.getOutput(outdatedDeps);
+    const outdatedDeps = await this.getOutdatedDependencies(args.filter);
+
+    const output = await this.getOutput(outdatedDeps, args.filter);
 
     if (args.outputFormat === "json") {
       console.log(JSON.stringify(output));
@@ -86,16 +91,49 @@ export class OutdatedCommand {
     throw new ReadachangelogError("Invalid output format");
   }
 
+  protected async getOutdatedDependencies(
+    filter?: OutdatedPackageFilter
+  ): Promise<OutdatedDependencies> {
+    const outdatedDeps = await this.outdated.getOutdatedDependencies();
+
+    if (!filter) {
+      return outdatedDeps;
+    }
+
+    // Assume any filtering will require the NPM config.
+    const npmConfig = await this.lookup.getNpmConfig();
+
+    // Perform filtering
+    const filteredDeps: OutdatedDependencies = {};
+    for (const key in outdatedDeps) {
+      const outdatedDep = outdatedDeps[key];
+      if (filter.scope) {
+        // TODO: untangle this... outdated command needs the spec at some point anywhere
+        // so we should only do that once. An easy way to do that is to make the getOutdatedDependencies()
+        // return with the spec data and then pass that around.
+        const spec = this.packageSpec.fromInput(outdatedDep.name, npmConfig);
+        if (spec.scope !== filter.scope) {
+          continue;
+        }
+      }
+      filteredDeps[key] = outdatedDep;
+    }
+
+    return filteredDeps;
+  }
+
   protected async getOutput(
-    outdatedDeps: OutdatedDependencies
+    outdatedDeps: OutdatedDependencies,
+    filter?: OutdatedPackageFilter
   ): Promise<OutdatedOutput> {
     const output: OutdatedOutput = {
+      filter: filter,
       dependencies: [],
     };
     for (const packageName in outdatedDeps) {
       const outdatedPackage = outdatedDeps[packageName];
       const content = await this.getContent(outdatedPackage);
-      const sections = await this.getSections(content, outdatedPackage);
+      const sections = await this.getMatchingSections(content, outdatedPackage);
 
       output.dependencies.push({
         ...outdatedPackage,
@@ -119,7 +157,7 @@ export class OutdatedCommand {
     }
   }
 
-  async getSections(
+  async getMatchingSections(
     content: string | undefined,
     outdatedPackage: OutdatedDependency
   ): Promise<ChangelogVersion[]> {
@@ -127,7 +165,7 @@ export class OutdatedCommand {
       return [];
     }
     const parsed = await this.parser.parseString(content);
-    const sections = ReadachangelogUtility.getMatches(
+    const sections = ReadachangelogUtility.getMatchingSections(
       parsed,
       {
         input: "",

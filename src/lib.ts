@@ -99,7 +99,7 @@ export class ReadachangelogUtility {
    * @param limit Must be a positive int or undefined. Undefined means no limit
    * @returns
    */
-  static getMatches(
+  static getMatchingSections(
     changelog: Changelog,
     versionOrDate: VersionOrDateMatch,
     limit: number | undefined

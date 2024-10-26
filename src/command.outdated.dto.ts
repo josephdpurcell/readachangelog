@@ -14,10 +14,15 @@ export class OutdatedCommandConfig {
  * The arguments the user passes to the CLI.
  */
 export class OutdatedCommandInputArguments {
+  filterScope?: string;
   // Options that have defaults are always set:
   toc: boolean;
   format: "raw" | "json";
   cacheDir: string;
+}
+
+export class OutdatedPackageFilter {
+  scope?: string;
 }
 
 /**
@@ -26,6 +31,7 @@ export class OutdatedCommandInputArguments {
 export class OutdatedCommandArguments {
   toc: boolean;
   outputFormat: "raw" | "json";
+  filter?: OutdatedPackageFilter;
 }
 
 export class OutdatedDependencyOutput extends OutdatedDependency {
@@ -34,5 +40,6 @@ export class OutdatedDependencyOutput extends OutdatedDependency {
 }
 
 export class OutdatedOutput {
+  filter?: OutdatedPackageFilter;
   dependencies: OutdatedDependencyOutput[];
 }
