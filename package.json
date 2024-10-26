@@ -15,6 +15,7 @@
     "readachangelog": "./dist/cli.js"
   },
   "files": [
+    "CHANGELOG.md",
     "dist/**/*",
     "!dist/**/*.test.js"
   ],
