@@ -68,6 +68,16 @@ Look at the help output.
 
 Also look at example reports: [docs/example-reports](https://github.com/josephdpurcell/readachangelog/tree/main/docs/example-reports).
 
+## How it Works
+
+Ok what are the basic bits you'd want to know about how this works?
+
+- It fetches the package using `pacote` which basically just pulls packages using NPM so it leverages NPM's cache and auth and other NPM configs (global/local).
+- But, it needs to extract that package to inspect the file. So, we extract to a cache directory owned by this project which by default is `/tmp/readachangelog`. (You can customize this.)
+- Once you have the changelog you need to parse it and this project uses [changelog-parser](https://www.npmjs.com/package/changelog-parser).
+
+The rest of the details you can look at the code because open source, eh?
+
 ## Contributing & Development
 
 See [contributing.md](https://github.com/josephdpurcell/readachangelog/blob/main/CONTRIBUTING.md) for information on how to develop or contribute to this project.

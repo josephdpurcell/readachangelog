@@ -1,10 +1,11 @@
 import * as fs from "fs";
 import * as pacote from "pacote";
 import * as path from "path";
-import { COMMAND_NAME } from "./dto";
+import { DEFAULT_CACHE_DIR } from "./dto";
 import { ReadachangelogError } from "./error";
 import { FileMatcher } from "./file-matcher";
 import { ReadachangelogUtility } from "./lib";
+import { NpaSpec, PackageSpec } from "./package-spec";
 
 export class ReadachangelogLookupOptions {
   cacheDir: string;
@@ -16,13 +17,15 @@ export class ReadachangelogLookupOptions {
 export class ReadachangelogLookup {
   protected readonly options: ReadachangelogLookupOptions;
   protected readonly fileMatcher: FileMatcher;
+  protected readonly packageSpec: PackageSpec;
 
   constructor(options?: Partial<ReadachangelogLookupOptions>) {
-    const cacheDir = options?.cacheDir ?? `/tmp/${COMMAND_NAME}`;
+    const cacheDir = options?.cacheDir ?? DEFAULT_CACHE_DIR;
     this.options = {
       cacheDir: path.resolve(cacheDir),
     };
     this.fileMatcher = new FileMatcher();
+    this.packageSpec = new PackageSpec();
   }
 
   /**
@@ -38,9 +41,17 @@ export class ReadachangelogLookup {
   async fromNpm(specInput: string): Promise<string> {
     const config = await ReadachangelogUtility.getNpmConfig();
 
-    const dir = `${this.options.cacheDir}/${specInput}`;
+    // Build a directory name that is safe.
+    const spec = this.packageSpec.fromInput(specInput, config);
+    const packagePath = this.getCachePackagePath(specInput, spec);
+    const dir = `${this.options.cacheDir}/${packagePath}`;
 
-    if (!fs.existsSync(dir)) {
+    // We do not need to refetch if its a version type and the directory exists.
+    // Every other type we must refetch to avoid stale cache. Pacote will handle purging
+    // the directory before extracting. This is actually pretty fast still if Pacote
+    // finds the package in NPM cache because it's just deleting the dir and then reading the
+    // package from NPM cache and extracting into readachangelog cache.
+    if (spec.type !== "version" || !fs.existsSync(dir)) {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
       await pacote.extract(specInput, dir, config);
     }
@@ -63,5 +74,12 @@ export class ReadachangelogLookup {
         `Spec ${specInput} has ${changelog} that could not be read because ${e.message}`
       );
     }
+  }
+
+  getCachePackagePath(specInput: string, spec: NpaSpec): string {
+    // If the type is version we can rely on spec.fetchSpec to contain the version.
+    const subdir = spec.type === "version" ? spec.fetchSpec : "range";
+    const packagePath: string = `${spec.name}/${subdir}`;
+    return packagePath;
   }
 }

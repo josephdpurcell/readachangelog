@@ -10,15 +10,13 @@ Primary ways to contribute:
 
 Here are some top TODOs I would like:
 
-- There needs to be a TTL on the cache dir of some kind.
-- Can we use package spec as folder names? That's what's currently happening in the cache dir without issues on Mac.
 - Add the ability to filter by package name, e.g. filter to a scope such as a private NPM scope.
 - Merge some of the functionality from https://www.npmjs.com/package/changelog into here so that if a project is public and doesn't have a CHANGELOG.md it could be auto generated. Perhaps this could be expanded to say "any package that has a repository specified we can generate a changelog for". This would be especially useful for outdated.
 - Format "raw" should probably be "md" since its Markdown. The reason I used "raw" was because its the "raw" file and coincidentally the content is Markdown. There are various changelog formats and I think the only ones supported right now are Markdown so "raw" and "md" formats are the same. Something to consider if other formats are supported in the future.
 - Can this project take cues from say [check-outdated](https://github.com/jens-duttke/check-outdated)? I like how dependencies and devDependencies are separated and then color legend for major/minor/patch/reverted. Not sure how that would translate to the JSON/RAW format.
 - Is performance a concern? I'm running it fine.
 - Should toc be added to "view" as well? Some changelogs are large.
-- Is there a better way to handle the cache dir? I think ideally I would want it to leverage npm's own cache directory, but I don't want to somehow conflict with its state.
+- Is there a better way to handle the cache dir? I think ideally I would want it to leverage npm's own cache directory, but I don't want to somehow conflict with its state. Maybe theres a way to just stream-read from the NPM cache dir directly because I think pacote will always download the package anyway?
 - Can this work with other package managers, yarn, etc?
 - How can `COMMAND_VERSION` automatically get set from package.json?
 - Run tests on pipeline

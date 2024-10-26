@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.1
+
+- Fix cache. How? How indeed. By only caching what we can, which is exactly 1 scenario: when you specify an exact package version because packages are immutable. All other cases will pull from NPM which will use its own cache if it exists so this is still performant for the cases I've tested.
+
 ## 1.3.0
 
 - Add broader changelog name checks, see [lookup.md](https://github.com/josephdpurcell/readachangelog/tree/main/docs/lookup.md).
