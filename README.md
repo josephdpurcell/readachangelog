@@ -14,7 +14,7 @@ I am new to `commander` so feedback is apprecaited on how the command could be w
 
 ## Limitations
 
-There are no shortage of opinions on CHANGELOG.md format, including filename. This project requires `CHANGELOG.md` to be at the root of the package and is published to the [NPM repository](https://www.npmjs.com/). A LOT of packages do not have this.
+There are no shortage of opinions on CHANGELOG.md format, including filename. See [Keep a Changelog](https://keepachangelog.com/) and [Common Changelog](https://common-changelog.org/). This project requires `CHANGELOG.md` to be at the root of the package and is published to the [NPM repository](https://www.npmjs.com/). A LOT of packages do not have this. So, this project does extra logic to accommodate unconventional file names, see [lookup.md](https://github.com/josephdpurcell/readachangelog/tree/main/docs/lookup.md).
 
 This project does not read commit messages or GitHub release pages.
 
@@ -24,7 +24,7 @@ The CHANGELOG.md file is parsed using [changelog-parser](https://www.npmjs.com/p
 
 I'll do my best to capture alternatives that are in this same category of "changelog" tools.
 
-There's an entire category of "keep a changelog" tools like [changelog](https://www.npmjs.com/package/changelog), [keep-a-changelog](https://www.npmjs.com/package/keep-a-changelog), [semantic-release](https://www.npmjs.com/package/semantic-release), and [conventional-changelog](https://github.com/conventional-changelog). I'm sure there are more. They all seem to be limited togeneration of a changelog information by reading commit messages. And some (if not all?) are limited to commit messages on public GitHub repositories.
+There's an entire category of "keep a changelog" tools like [changelog](https://www.npmjs.com/package/changelog), [keep-a-changelog](https://www.npmjs.com/package/keep-a-changelog), [semantic-release](https://www.npmjs.com/package/semantic-release), [conventional-changelog](https://github.com/conventional-changelog), and [release-please](https://www.npmjs.com/package/release-please). I'm sure there are more. They all seem to be limited togeneration of a changelog information by reading commit messages. And some (if not all?) are limited to commit messages on public GitHub repositories.
 
 Separate from that category are "read a changelog" tools. The only one I found was [npm-fetch-changelog](https://www.npmjs.com/package/npm-fetch-changelog). It only works with GitHub packages but supports reading release pages for tags and then uses the CHANGELOG.md or changelog.md file as a backup.
 
@@ -66,7 +66,7 @@ Then open up that md file and enjoy. You can also use `--format=json` to get JSO
 
 Look at the help output.
 
-Also look at example reports: [docs/example-reports/](https://github.com/josephdpurcell/readachangelog/tree/main/docs/example-reports).
+Also look at example reports: [docs/example-reports](https://github.com/josephdpurcell/readachangelog/tree/main/docs/example-reports).
 
 ## Contributing & Development
 
