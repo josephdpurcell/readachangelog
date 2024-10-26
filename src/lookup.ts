@@ -3,6 +3,7 @@ import * as pacote from "pacote";
 import * as path from "path";
 import { COMMAND_NAME } from "./dto";
 import { ReadachangelogError } from "./error";
+import { FileMatcher } from "./file-matcher";
 import { ReadachangelogUtility } from "./lib";
 
 export class ReadachangelogLookupOptions {
@@ -14,12 +15,14 @@ export class ReadachangelogLookupOptions {
  */
 export class ReadachangelogLookup {
   protected readonly options: ReadachangelogLookupOptions;
+  protected readonly fileMatcher: FileMatcher;
 
   constructor(options?: Partial<ReadachangelogLookupOptions>) {
     const cacheDir = options?.cacheDir ?? `/tmp/${COMMAND_NAME}`;
     this.options = {
       cacheDir: path.resolve(cacheDir),
     };
+    this.fileMatcher = new FileMatcher();
   }
 
   /**
@@ -36,19 +39,29 @@ export class ReadachangelogLookup {
     const config = await ReadachangelogUtility.getNpmConfig();
 
     const dir = `${this.options.cacheDir}/${specInput}`;
-    const changelog = `${dir}/CHANGELOG.md`;
 
     if (!fs.existsSync(dir)) {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
       await pacote.extract(specInput, dir, config);
     }
 
-    if (!fs.existsSync(changelog)) {
+    const matchedFiles = await this.fileMatcher.getMatchesForDir(dir);
+    const highestPriorityMatch =
+      this.fileMatcher.getHighestPriorityMatch(matchedFiles);
+    if (highestPriorityMatch === undefined) {
       throw new ReadachangelogError(
-        `Spec ${specInput} does not have a changelog, checked ${changelog}`
+        `Spec ${specInput} does not have a changelog, checked ${dir}`
       );
     }
-    const changelogContent = fs.readFileSync(changelog, "utf-8");
-    return changelogContent;
+
+    const changelog = `${dir}/${highestPriorityMatch.file}`;
+    try {
+      const changelogContent = fs.readFileSync(changelog, "utf-8");
+      return changelogContent;
+    } catch (e) {
+      throw new ReadachangelogError(
+        `Spec ${specInput} has ${changelog} that could not be read because ${e.message}`
+      );
+    }
   }
 }

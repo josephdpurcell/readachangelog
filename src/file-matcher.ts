@@ -1,9 +1,11 @@
+import * as fs from "fs";
 import { ReadachangelogError } from "./error";
 
 export abstract class FileMatchRuleBase {
   label: string;
   isConventional: boolean;
   abstract ruleType: "exact" | "regex";
+  priority: number;
 }
 
 export class ExactFileMatchRule extends FileMatchRuleBase {
@@ -18,6 +20,11 @@ export class RegexFileMatchRule extends FileMatchRuleBase {
 
 export type FileMatchRule = RegexFileMatchRule | ExactFileMatchRule;
 
+export class FileMatch {
+  file: string;
+  rule: FileMatchRule;
+}
+
 /**
  * The rules to check against. These should be in order and match docs/lookup.md.
  */
@@ -27,57 +34,102 @@ export const FileMatchRules: FileMatchRule[] = [
     rule: "changelog.md",
     ruleType: "exact",
     isConventional: true,
+    priority: 100,
   },
   {
     label: "Unconventional: changelog",
-    rule: /^changelog(\.md|\.[a-z_-]*\.md|\.markdown|)$/i,
+    rule: /^changelog(\.md|\.[a-z_-]*\.md|\.markdown|)$/,
     ruleType: "regex",
     isConventional: false,
+    priority: 90,
   },
   {
     label: "Unconventional: changes",
-    rule: /^changes(|\.md|\.markdown)$/i,
+    rule: /^changes(|\.md|\.markdown)$/,
     ruleType: "regex",
     isConventional: false,
+    priority: 80,
   },
   {
     label: "Unconventional: history",
-    rule: /^history(|\.md|\.markdown)$/i,
+    rule: /^history(|\.md|\.markdown)$/,
     ruleType: "regex",
     isConventional: false,
+    priority: 70,
   },
   {
     label: "Unconventional: release-notes.md",
     rule: "release-notes.md",
     ruleType: "exact",
     isConventional: false,
+    priority: 60,
   },
   {
     label: "Unconventional: releasenotes.md",
     rule: "releasenotes.md",
     ruleType: "exact",
     isConventional: false,
+    priority: 50,
   },
 ];
 
-export class FileMatch {
-  isChangelog(file: string): boolean {
+export class FileMatcher {
+  getMatchForFile(file: string): FileMatch | undefined {
     const lowercaseFile = file.toLowerCase();
     for (const rule of FileMatchRules) {
       if (rule.ruleType === "exact") {
         if (lowercaseFile === rule.rule) {
-          return true;
+          return {
+            file: file,
+            rule: rule,
+          };
         }
         continue;
       }
       if (rule.ruleType === "regex") {
         if (rule.rule.test(lowercaseFile)) {
-          return true;
+          return {
+            file: file,
+            rule: rule,
+          };
         }
         continue;
       }
       throw new ReadachangelogError("Unsupported rule type");
     }
-    return false;
+    return undefined;
+  }
+
+  getMatchesForFiles(files: string[]): FileMatch[] {
+    const matches: FileMatch[] = [];
+    for (const file of files) {
+      const match = this.getMatchForFile(file);
+      if (match === undefined) {
+        continue;
+      }
+      matches.push(match);
+    }
+    return matches;
+  }
+
+  async getMatchesForDir(dir: string): Promise<FileMatch[]> {
+    try {
+      const filesInDir = fs.readdirSync(dir);
+      return this.getMatchesForFiles(filesInDir);
+    } catch (e) {
+      throw new ReadachangelogError(
+        `Could not read ${dir} because ${e.message}`
+      );
+    }
+  }
+
+  getHighestPriorityMatch(matches: FileMatch[]): FileMatch | undefined {
+    if (matches.length < 1) {
+      return undefined;
+    }
+    const highestPriorityMatch = matches.reduce((prev, current) => {
+      return current.rule.priority > prev.rule.priority ? current : prev;
+    });
+    return highestPriorityMatch;
   }
 }

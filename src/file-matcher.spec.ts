@@ -2,16 +2,17 @@ import { fail } from "assert";
 import * as fs from "fs";
 import * as path from "path";
 import { TEST_FILES_DIR } from "./dto";
-import { FileMatch } from "./file-match";
+import { FileMatcher } from "./file-matcher";
 
 class FileTestCase {
   score: number;
   file: string;
   match: boolean;
+  priority: number;
 }
 
-describe("FileMatch", () => {
-  const match = new FileMatch();
+describe(FileMatcher.name, () => {
+  const matcher = new FileMatcher();
 
   it("package-files-with-score.json", async () => {
     const testFile = `${TEST_FILES_DIR}/package-files-with-score.json`;
@@ -20,12 +21,25 @@ describe("FileMatch", () => {
     const testCases: FileTestCase[] = JSON.parse(content);
 
     for (const testCase of testCases) {
-      const isMatch = match.isChangelog(testCase.file);
+      const matchingRule = matcher.getMatchForFile(testCase.file);
+      const isMatch = matchingRule === undefined ? false : true;
       if (isMatch !== testCase.match) {
         fail(
           `File ${testCase.file} test failed: got ${isMatch} but expected ${testCase.match}`
         );
       }
     }
+  });
+
+  it("getMatchesForDir 1", async () => {
+    // The current dir is the root of our project which will have only 1 match
+    const matches = await matcher.getMatchesForDir(".");
+    expect(matches.length).toEqual(1);
+  });
+
+  it("getMatchesForDir 0", async () => {
+    // The test files dir will have no matches
+    const matches = await matcher.getMatchesForDir(TEST_FILES_DIR);
+    expect(matches.length).toEqual(0);
   });
 });
