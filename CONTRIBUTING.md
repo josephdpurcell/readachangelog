@@ -22,7 +22,7 @@ Here are some top TODOs I would like:
 - Can this work with other package managers, yarn, etc?
 - How can `COMMAND_VERSION` automatically get set from package.json?
 - Run tests on pipeline
-- Is `changelog-parser` the best choice? There are a few options and it seemed like the most used. Not sure how well its going to work for scenarios that don't match the tests.
+- Is `changelog-parser` the best choice? There are a few options and it seemed like the most used. Not sure how well its going to work for scenarios that don't match the tests. Perhaps that dependency should just be deprecated in favor of copying the code into here, see [parseChangelog()](https://github.com/ungoldman/changelog-parser/blob/main/index.js#L23).
 - Tidy up the command... apparently you can pass extra arguments? And I originally designed it to be `readachangelog [modulespec] [versionOrDate]` but I couldn't figure out how to get optional arguments to work
 
 ## Development
