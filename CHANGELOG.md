@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.0
+
+- Add broader changelog name checks, see [lookup.md](https://github.com/josephdpurcell/readachangelog/tree/main/docs/lookup.md).
+
 ## 1.2.5
 
 - Remove axios dep. (A better way to test this package needs to be made.)
