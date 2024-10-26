@@ -8,6 +8,7 @@ export * from "./command.view.class";
 export * from "./command.view.dto";
 export * from "./dto";
 export * from "./error";
+export * from "./file-match";
 export * from "./lib";
 export * from "./lookup";
 export * from "./parser";
