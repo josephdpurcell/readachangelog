@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.2.5
+
+- Remove axios dep. (A better way to test this package needs to be made.)
+- Add version check on publish
+
 ## 1.2.4
 
 - Move default cache dir from `/tmp` to `/tmp/readachangelog/cache`
