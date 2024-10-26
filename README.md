@@ -4,7 +4,7 @@ Keep a changelog? Read a changelog.
 
 ## Background
 
-Ever wanted to read a CHANGELOG.md? Sure, we've all been there. But have you tried doing it from a terminal? Yikes.
+Ever wanted to read a CHANGELOG.md? Sure, we've all been there. But have you tried doing it from a terminal for a bunch of packages? Yikes.
 
 This project is intended to make that easier by providing a CLI tool to read a CHANGELOG.md file from any NPM repository package or any registry you've configured in your NPM config (e.g. `.npmrc`). Yep, it should work with private repositories.
 
