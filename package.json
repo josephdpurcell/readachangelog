@@ -1,7 +1,7 @@
 {
   "name": "@readachangelog/cli",
   "private": false,
-  "version": "1.2.4",
+  "version": "1.2.5",
   "description": "Keep a changelog? Read a changelog.",
   "author": "Joseph D. Purcell",
   "keywords": [
@@ -26,7 +26,7 @@
     "build": "npm run clean && tsc",
     "test": "npm run build && jest",
     "bundle": "npm run build && pkg . --out-dir ./exec/",
-    "pub": "npm run build && npm publish --access public"
+    "pub": "grep 'COMMAND_VERSION.*'$(cat package.json | jq -r '.version') src/dto.ts || false && npm run build && npm publish --access public"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.26.0",
@@ -41,7 +41,6 @@
   },
   "dependencies": {
     "@npmcli/config": "^9.0.0",
-    "axios": "1.6.1",
     "changelog-parser": "^3.0.1",
     "commander": "^12.1.0",
     "pacote": "^20.0.0",
