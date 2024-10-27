@@ -73,7 +73,7 @@ do
 done
 ```
 
-Looking at the reults there were 271 files. Of those, the number of versions exactly matched the number of 2nd level headings. The remaining 53 files had the number of versions exactly match the number of 1st plus 2nd level headings. This seems uncanny to get 100% accuracy.
+Looking at the reults there were 271 files. Of those, the number of versions exactly matched the number of 2nd level headings. The remaining 53 files had the number of versions exactly match the number of 1st plus 2nd level headings minus 1. This seems uncanny to get 100% accuracy.
 
 Again, I didn't dig into to see if the parsed data was correct. I'm just doing an eyeball analysis here.
 
