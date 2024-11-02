@@ -16,7 +16,7 @@ I am new to `commander` so feedback is apprecaited on how the command could be w
 
 **Changelog Source**
 
-The changelog must be published to an [NPM repository](https://www.npmjs.com/), private registries are supported as long as your NPM installation is configured. The changelog content cannot be read from commit messages or GitHub release pages, though if you want that there are other packages that do that.
+The changelog must be published to an [NPM repository](https://www.npmjs.com/), private registries are supported as long as your NPM installation is configured. The changelog content cannot be read from commit messages. The opinion of this package is that commit messages are immutable and serve a different purpose than a change log. Said differently, there is important information you may want to include in your changelog that would not be found in commits, and there is information in commits that is not relevant for a changelog. Also, the changelog content cannot be read from GitHub release pages. The opinion of this package is that a GitHub release page is just a vendor specific changelog and we want to use the universally supported changelog, a.k.a. CHANGELOG.md. People can still generate their changelog information from commits or GitHub pages using the various tools that accomplish this.
 
 **Changelog File Format**
 
