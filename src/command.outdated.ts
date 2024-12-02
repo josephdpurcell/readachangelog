@@ -52,7 +52,7 @@ Examples:
           ? { scope: options.filterScope }
           : undefined;
 
-        command.run({
+        await command.run({
           outputFormat: options.format,
           // This is so wild to me. See "Other option types, negatable boolean and boolean|value" onhttps://www.npmjs.com/package/commander.
           // Passing --no-toc results on toc: false. And if your default is false on the option then you can never get to true.
