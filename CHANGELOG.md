@@ -1,6 +1,10 @@
 # Changelog
 
-## 1.4.2
+## 1.4.3 - 2024-12-02
+
+- Await within try/catch to avoid unhandled promise exception. Classic.
+
+## 1.4.2 - 2024-10-26
 
 - Add analysis about parsing performance for changelog-parser
 

@@ -1,5 +1,5 @@
 export const COMMAND_NAME = "readachangelog";
-export const COMMAND_VERSION = "1.4.2";
+export const COMMAND_VERSION = "1.4.3";
 export const EXIT_CODE_FAILURE = 0;
 export const DEFAULT_CACHE_DIR = "/tmp/readachangelog/cache";
 export const TEST_FILES_DIR = "src/test-files";

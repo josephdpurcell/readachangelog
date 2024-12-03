@@ -87,7 +87,7 @@ Examples:
           const versionOrDate =
             ReadachangelogUtility.parseVersionOrDate(versionOrDateInput);
 
-          viewCommand.run({
+          await viewCommand.run({
             packageSpec: package_spec,
             versionOrDate: versionOrDate,
             outputFormat: options.format,
