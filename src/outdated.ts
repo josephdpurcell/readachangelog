@@ -48,7 +48,10 @@ export class Outdated {
           .filter((item) => item)
           .join(" "),
         (error, stdout) => {
-          if (error && stdout.length === 0) {
+          // The original code was this:
+          // if (error && stdout.length === 0) {
+          // But, why? If error is given wouldn't we always expect an error?
+          if (error) {
             reject(error);
 
             return;
@@ -57,7 +60,10 @@ export class Outdated {
           const response = this.parseResponse(stdout);
 
           if ("error" in response) {
-            reject(response.error);
+            // This could throw a non-Error:
+            // reject(response.error);
+            // So just do this:
+            throw new Error(`Failure getting dependencies: ${JSON.stringify(response.error)}`);
 
             return;
           }
