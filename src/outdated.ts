@@ -48,10 +48,9 @@ export class Outdated {
           .filter((item) => item)
           .join(" "),
         (error, stdout) => {
-          // The original code was this:
-          // if (error && stdout.length === 0) {
-          // But, why? If error is given wouldn't we always expect an error?
-          if (error) {
+          // The original code has this and I suppose we keep it because based on some
+          // magic we can have an error sometimes and still succeed.
+          if (error && stdout.length === 0) {
             reject(error);
 
             return;
