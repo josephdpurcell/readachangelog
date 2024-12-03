@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.4.5 - 2024-12-02
+
+- Previous version was too zealous with assumptions, this version correctly knows that sometimes the npm outdated execution will return an error but that can still result in success. Why? Good question.
+
+## 1.4.4 - 2024-12-02
+
+- Ensure Error is used so the message can be logged
+- Use exit code 1 on failure instead of 0. What? Yep.
+
 ## 1.4.3 - 2024-12-02
 
 - Await within try/catch to avoid unhandled promise exception. Classic.

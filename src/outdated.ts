@@ -48,6 +48,8 @@ export class Outdated {
           .filter((item) => item)
           .join(" "),
         (error, stdout) => {
+          // The original code has this and I suppose we keep it because based on some
+          // magic we can have an error sometimes and still succeed.
           if (error && stdout.length === 0) {
             reject(error);
 
@@ -57,7 +59,10 @@ export class Outdated {
           const response = this.parseResponse(stdout);
 
           if ("error" in response) {
-            reject(response.error);
+            // This could throw a non-Error:
+            // reject(response.error);
+            // So just do this:
+            throw new Error(`Failure getting dependencies: ${JSON.stringify(response.error)}`);
 
             return;
           }
